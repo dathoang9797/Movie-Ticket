@@ -1,0 +1,49 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+            "@Admin/*": [
+                "src/Admin/*"
+            ],
+            "@Components/*": [
+                "src/Components/*"
+            ],
+            "@Redux/*": [
+                "src/Redux/*"
+            ],
+            "@Assets/*": [
+                "src/Assets/*"
+            ],
+            "@Config/*": [
+                "src/Config/*"
+            ],
+            "@HOC/*": [
+                "src/HOC/*"
+            ],
+            "@Layouts/*": [
+                "src/Layouts/*"
+            ],
+            "@Routers/*": [
+                "src/Routers/*"
+            ],
+            "@Services/*": [
+                "src/Services/*"
+            ],
+            "@Shared/*": [
+                "src/Shared/*"
+            ],
+            "@Pages/*": [
+                "src/Pages/*"
+            ],
+            "@Models/*": [
+                "src/Models/*"
+            ],
+            "@Templates/*": [
+                "src/Templates/*"
+            ],
+            "@Utils/*": [
+                "src/Utils/*"
+            ],
+        },
+    },
+}
