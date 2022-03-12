@@ -1,27 +1,19 @@
-import React, { useEffect } from 'react';
+import Header from '@Layouts/Header';
+import ContactPage from '@Pages/ContactPage';
+import HomePage from '@Pages/HomePage';
+import NewsPage from '@Pages/NewsPage';
+import { routerTemplate } from '@Routers/Router';
+import HomeTemplate from '@Templates/HomeTemplate/HomeTemplate';
+import History from '@Utils/Libs/History';
+import React from 'react';
+import { Router, Switch, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      {/* <DemoGrid />
-      <DemoPaddingMargin />
-      <DemoWidth />
-      <DemoFlex /> */}
-      {/* <DemoBackGround /> */}
-      {/* <DemoBorderRadius /> */}
-      {/* <DemoResponsive /> */}
-      {/* <DemoCustomCss /> */}
-      {/* <DemoTransition /> */}
-      {/* <BaiTapTaiWind /> */}
-      {/* <DemoJoin /> */}
-      {/* <LastFirstL /> */}
-      {/* <ChunkLodash />
-      <FillLodash /> */}
-      {/* <SizeLodash /> */}
-      {/* <SortLodash /> */}
-      <BaiTapTongHop />
-    </div>
+    <>
+      <Router history={History}>{routerTemplate}</Router>
+    </>
   );
-}
+};
 
 export default App;
