@@ -1,0 +1,5 @@
+{
+  "name": "Spinner",
+  "main": "./Spinner.tsx",
+  "private": true
+}

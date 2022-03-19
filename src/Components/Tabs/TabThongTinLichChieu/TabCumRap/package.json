@@ -1,0 +1,5 @@
+{
+  "name": "TabCumRap",
+  "main": "./TabCumRap.tsx",
+  "private": true
+}

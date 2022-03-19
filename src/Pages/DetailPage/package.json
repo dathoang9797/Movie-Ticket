@@ -1,0 +1,5 @@
+{
+  "name": "DetailPage",
+  "main": "./DetailPage.tsx",
+  "private": true
+}

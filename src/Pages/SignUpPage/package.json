@@ -1,3 +1,5 @@
 {
-  "main": "./SignUpPage.tsx"
+  "name": "SignUpPage",
+  "main": "./SignUpPage.tsx",
+  "private": true
 }

@@ -1,0 +1,5 @@
+{
+  "name": "CarouselReducer",
+  "main": "./CarouselReducer.tsx",
+  "private": true
+}

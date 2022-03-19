@@ -1,3 +1,5 @@
 {
-  "main": "./Header.tsx"
+  "name": "Header",
+  "main": "./Header.tsx",
+  "private": true
 }

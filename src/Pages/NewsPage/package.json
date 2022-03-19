@@ -1,3 +1,5 @@
 {
-  "main": "./NewsPage.tsx"
+  "name": "NewsPage.tsx",
+  "main": "./NewsPage.tsx",
+  "private": true
 }

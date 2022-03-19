@@ -1,0 +1,5 @@
+{
+  "name": "Circle",
+  "main": "./Circle.tsx",
+  "private": true
+}

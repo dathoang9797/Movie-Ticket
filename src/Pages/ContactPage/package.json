@@ -1,3 +1,5 @@
 {
-  "main": "./ContactPage.tsx"
+  "name": "ContactPage",
+  "main": "./ContactPage.tsx",
+  "private": true
 }

@@ -1,0 +1,5 @@
+{
+  "name": "TabDanhSachPhim",
+  "main": "./TabDanhSachPhim.tsx",
+  "private": true
+}

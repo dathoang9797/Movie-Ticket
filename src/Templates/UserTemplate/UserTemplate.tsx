@@ -1,12 +1,11 @@
-import React from 'react';
-import { Route } from 'react-router';
-import { PropsTemplate } from '@Models/Global.type';
-import Header from '@Layouts/Header';
 import Footer from '@Layouts/Footer';
-import HomeCarousel from '@Pages/HomePage/HomeCarousel';
+import Header from '@Layouts/Header';
+import { PropsTemplate } from '@Core/Models/Global.type';
+import React, { useEffect } from 'react';
+import { Route } from 'react-router';
 
-const UserTemplate = (props: PropsTemplate) => {
-  const { Component, ...restRoute } = props;
+const UserTemplate = ({ Component, ...restRoute }: PropsTemplate) => {
+  useEffect(() => window.scrollTo(0, 0));
 
   return (
     <Route
@@ -14,7 +13,6 @@ const UserTemplate = (props: PropsTemplate) => {
       render={(propsRoute) => (
         <>
           <Header />
-          <HomeCarousel />
           <Component {...propsRoute} />
           <Footer />
         </>

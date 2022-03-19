@@ -1,0 +1,5 @@
+{
+  "name": "QuanLyPhimReducer",
+  "main": "./QuanLyPhimReducer.tsx",
+  "private": true
+}

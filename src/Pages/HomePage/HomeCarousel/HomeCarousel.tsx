@@ -1,41 +1,30 @@
-import React, { CSSProperties } from 'react';
-import { Carousel } from 'antd';
+import { Banner } from '@Core/Models/Banner.type';
+import {
+  CarouselContainer,
+  CarouselItem,
+  CarouselItemImage,
+  CarouselStyle,
+} from '@Pages/HomePage/HomeCarousel/HomeCarousel.styles';
+import React from 'react';
 
-const contentStyle: CSSProperties = {
-  height: '450px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
+type PropsHomeCarousel = {
+  arrImg: Banner[];
 };
 
-const HomeCarousel = () => {
-  return (
-    <>
-      <Carousel effect='fade'>
-        <div>
-          <div style={contentStyle}>
-            <img src='https://picsum.photos/1000' alt='' className='w-full' />
-          </div>
-        </div>
-        <div>
-          <div style={contentStyle}>
-            <img src='https://picsum.photos/1000' alt='' className='w-full' />
-          </div>
-        </div>
-        <div>
-          <div style={contentStyle}>
-            <img src='https://picsum.photos/1000' alt='' className='w-full' />
-          </div>
-        </div>
-        <div>
-          <div style={contentStyle}>
-            <img src='https://picsum.photos/1000' alt='' className='w-full' />
-          </div>
-        </div>
-      </Carousel>
-    </>
-  );
-};
+function HomeCarousel({ arrImg }: PropsHomeCarousel) {
+  const renderCarousel = () => {
+    return arrImg.map((item, index) => {
+      return (
+        <CarouselContainer key={index}>
+          <CarouselItem image={item.hinhAnh}>
+            <CarouselItemImage src={item.hinhAnh} alt={item.hinhAnh} className='w-full opacity-0' />
+          </CarouselItem>
+        </CarouselContainer>
+      );
+    });
+  };
 
-export default HomeCarousel;
+  return <CarouselStyle effect='fade'>{renderCarousel()}</CarouselStyle>;
+}
+
+export default React.memo(HomeCarousel);

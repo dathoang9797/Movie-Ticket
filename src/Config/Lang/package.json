@@ -1,0 +1,5 @@
+{
+  "name": "Lang",
+  "main": "./i18n.tsx",
+  "private": true
+}

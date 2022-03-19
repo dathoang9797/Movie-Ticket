@@ -1,3 +1,5 @@
 {
-  "main": "./Footer.tsx"
+  "name": "Footer",
+  "main": "./Footer.tsx",
+  "private": true
 }

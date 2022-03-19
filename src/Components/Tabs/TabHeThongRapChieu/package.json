@@ -1,0 +1,5 @@
+{
+  "name": "TabHeThongRapChieu",
+  "main": "./TabHeThongRapChieu.tsx",
+  "private": true
+}

@@ -1,0 +1,5 @@
+{
+  "name": "CheckoutPage",
+  "main": "./CheckoutPage.tsx",
+  "private": true
+}

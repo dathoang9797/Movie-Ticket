@@ -1,0 +1,5 @@
+{
+  "name": "ArrowSlick",
+  "main": "./ArrowSlick.tsx",
+  "private": true
+}

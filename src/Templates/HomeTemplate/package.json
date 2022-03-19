@@ -1,3 +1,5 @@
 {
-  "main": "./HomeTemplate.tsx"
+  "name": "HomeTemplate",
+  "main": "./HomeTemplate.tsx",
+  "private": true
 }

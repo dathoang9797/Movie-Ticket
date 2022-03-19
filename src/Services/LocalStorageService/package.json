@@ -1,3 +1,5 @@
 {
-  "main": "./LocalStorageService.ts"
+  "name": "LocalStorageService",
+  "main": "./LocalStorageService.tsx",
+  "private": true
 }

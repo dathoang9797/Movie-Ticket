@@ -1,0 +1,5 @@
+{
+  "name": "WebSocket",
+  "main": "./WebSocket.tsx",
+  "private": true
+}

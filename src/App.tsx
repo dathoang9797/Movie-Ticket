@@ -1,19 +1,22 @@
-import Header from '@Layouts/Header';
-import ContactPage from '@Pages/ContactPage';
-import HomePage from '@Pages/HomePage';
-import NewsPage from '@Pages/NewsPage';
-import { routerTemplate } from '@Routers/Router';
-import HomeTemplate from '@Templates/HomeTemplate/HomeTemplate';
+import Spinner from '@Components/Spinner';
+import { routerTemplates } from '@Routers/Router';
 import History from '@Utils/Libs/History';
-import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import React, { Fragment, Suspense } from 'react';
+import { Router, Switch } from 'react-router-dom';
+import GlobalStyles from './Globalstyle';
 
-const App = () => {
+function App() {
   return (
-    <>
-      <Router history={History}>{routerTemplate}</Router>
-    </>
+    <Fragment>
+      <Spinner />
+      <GlobalStyles />
+      <Suspense fallback={<Fragment></Fragment>}>
+        <Router history={History}>
+          <Switch>{routerTemplates}</Switch>
+        </Router>
+      </Suspense>
+    </Fragment>
   );
-};
+}
 
 export default App;

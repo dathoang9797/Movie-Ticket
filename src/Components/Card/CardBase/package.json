@@ -1,0 +1,5 @@
+{
+  "name": "CardBase",
+  "main": "./CardBase.tsx",
+  "private": true
+}

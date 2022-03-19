@@ -1,3 +1,5 @@
 {
-  "main": "./AdminTemplate.tsx"
+  "name": "AdminTemplate",
+  "main": "./AdminTemplate.tsx",
+  "private": true
 }

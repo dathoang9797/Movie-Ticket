@@ -1,53 +1,97 @@
-import React from 'react';
+import {
+  HeaderBackGround,
+  HeaderBrandImg,
+  HeaderButtonBurger,
+  HeaderContainer,
+  HeaderContentSign,
+  HeaderLi,
+  HeaderLink,
+  HeaderSignIn,
+  HeaderSignUp,
+  HeaderUl,
+} from '@Layouts/Header/Header.styles';
+import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
-import logo from '@Assets/images/Logo.png';
+import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '@Redux/hook';
+import { selectorNguoiDungState } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungSelector';
+import _ from 'lodash';
+import { localService } from '@Services/LocalStorageService';
+import History from '@Utils/Libs/History';
+
+const { Option } = Select;
 
 const Header = () => {
+  const { userInfo } = useAppSelector(selectorNguoiDungState);
+  const { t, i18n } = useTranslation();
+
+  const handleChange = (value: string) => {
+    i18n.changeLanguage(value);
+  };
+
   return (
-    <header className='p-4 bg-gray-800 dark:text-gray-100  bg-opacity-40 text-white fixed w-full z-10'>
-      <div className='container flex justify-between h-16 mx-auto'>
+    <HeaderBackGround>
+      <HeaderContainer>
         <NavLink to='/' aria-label='Back to homepage' className='flex items-center p-2'>
-          <img src={logo} alt='cyberlearn.vn' />
+          <HeaderBrandImg />
         </NavLink>
-        <ul className='items-stretch hidden space-x-3 lg:flex'>
-          <li className='flex'>
-            <NavLink
-              exact
-              to='/'
-              className='flex items-center px-4 -mb-1 border-b-2 border-transparent  dark:text-violet-400  text-white'
-              activeClassName='border-b-2 border-white'
-            >
+        <HeaderUl>
+          <HeaderLi>
+            <HeaderLink exact to='/' activeClassName='border-b-2 border-violet-600'>
               Home
-            </NavLink>
-          </li>
-          <li className='flex'>
-            <NavLink
-              exact
-              to='/contact'
-              className='flex items-center px-4 -mb-1 border-b-2 border-transparent  dark:text-violet-400  text-white'
-              activeClassName='border-b-2 border-white'
-            >
+            </HeaderLink>
+          </HeaderLi>
+          <HeaderLi>
+            <HeaderLink exact to='/contact' activeClassName='border-b-2 border-violet-600'>
               Contact
-            </NavLink>
-          </li>
-          <li className='flex'>
-            <NavLink
-              exact
-              to='/news'
-              className='flex items-center px-4 -mb-1 border-b-2 border-transparent  dark:text-violet-400  text-white'
-              activeClassName='border-b-2 border-white'
-            >
+            </HeaderLink>
+          </HeaderLi>
+          <HeaderLi>
+            <HeaderLink exact to='/news' activeClassName='border-b-2 border-violet-600'>
               News
-            </NavLink>
-          </li>
-        </ul>
-        <div className='items-center flex-shrink-0 hidden lg:flex'>
-          <button className='self-center px-8 py-3 rounded'>Sign in</button>
-          <button className='self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-coolGray-900'>
-            Sign up
-          </button>
-        </div>
-        <button className='p-4 lg:hidden'>
+            </HeaderLink>
+          </HeaderLi>
+        </HeaderUl>
+        <HeaderContentSign>
+          {_.isEmpty(userInfo) ? (
+            <>
+              <HeaderSignIn
+                to='/sign-in'
+                className='border-violet-600 dark:bg-violet-600 dark:text-gray-900'
+              >
+                {t('signin')}
+              </HeaderSignIn>
+              <HeaderSignUp
+                to='/sign-up'
+                className='border-violet-600 dark:bg-violet-600 dark:text-gray-900'
+              >
+                {t('signup')}
+              </HeaderSignUp>
+            </>
+          ) : (
+            <Fragment>
+              <NavLink to={'/profile'}> Hello {userInfo.taiKhoan}</NavLink>
+              <button
+                className='text-yellow-500  mx-3'
+                onClick={() => {
+                  localService.removeUserInfo();
+                  History.push(process.env.REACT_APP_LINK_HOME);
+                  window.location.reload();
+                }}
+              >
+                Đăng Xuất
+              </button>
+            </Fragment>
+          )}
+
+          <Select defaultValue='en' style={{ width: 100 }} onChange={handleChange}>
+            <Option value='en'>Eng</Option>
+            <Option value='chi'>Chi</Option>
+            <Option value='vi'>Vi</Option>
+          </Select>
+        </HeaderContentSign>
+        <HeaderButtonBurger>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -62,10 +106,10 @@ const Header = () => {
               d='M4 6h16M4 12h16M4 18h16'
             ></path>
           </svg>
-        </button>
-      </div>
-    </header>
+        </HeaderButtonBurger>
+      </HeaderContainer>
+    </HeaderBackGround>
   );
 };
 
-export default Header;
+export default React.memo(Header);

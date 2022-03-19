@@ -1,0 +1,5 @@
+{
+  "name": "HomeMenu",
+  "main": "./HomeMenu.tsx",
+  "private": true
+}

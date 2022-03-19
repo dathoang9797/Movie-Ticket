@@ -1,0 +1,5 @@
+{
+  "name": "LoadingReducer",
+  "main": "./LoadingReducer.tsx",
+  "private": true
+}

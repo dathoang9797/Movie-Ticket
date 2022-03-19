@@ -1,0 +1,5 @@
+{
+  "name": "MultipleSlick",
+  "main": "./MultipleSlick.tsx",
+  "private": true
+}

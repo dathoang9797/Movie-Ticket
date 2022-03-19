@@ -1,0 +1,5 @@
+{
+  "name": "CardFlip",
+  "main": "./CardFlip.tsx",
+  "private": true
+}

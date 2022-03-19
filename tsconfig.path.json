@@ -35,8 +35,8 @@
             "@Pages/*": [
                 "src/Pages/*"
             ],
-            "@Models/*": [
-                "src/Models/*"
+            "@Core/*": [
+                "src/Core/*"
             ],
             "@Templates/*": [
                 "src/Templates/*"

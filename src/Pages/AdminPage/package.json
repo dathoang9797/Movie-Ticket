@@ -1,0 +1,5 @@
+{
+  "name": "AdminPage",
+  "main": "./AdminPage.tsx",
+  "private": true
+}

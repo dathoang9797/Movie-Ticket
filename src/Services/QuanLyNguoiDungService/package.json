@@ -1,3 +1,5 @@
 {
-  "main": "./QuanLyNguoiDungService.ts"
+  "name": "QuanLyNguoiDungService",
+  "main": "./QuanLyNguoiDungService.tsx",
+  "private": true
 }

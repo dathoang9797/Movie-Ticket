@@ -1,3 +1,5 @@
 {
-  "main": "./HomeCarousel.tsx"
+  "name": "HomeCarousel",
+  "main": "./HomeCarousel.tsx",
+  "private": true
 }

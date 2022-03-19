@@ -1,3 +1,5 @@
 {
-  "main": "./QuanLyRapService.ts"
+  "name": "QuanLyRapService",
+  "main": "./QuanLyRapService.tsx",
+  "private": true
 }

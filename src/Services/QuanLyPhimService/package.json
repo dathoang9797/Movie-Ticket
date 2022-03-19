@@ -1,3 +1,5 @@
 {
-  "main": "./QuanLyPhimService.ts"
+  "name": "QuanLyPhimService",
+  "main": "./QuanLyPhimService.tsx",
+  "private": true
 }
