@@ -1,0 +1,5 @@
+{
+  "name": "UserManagerPage",
+  "main": "./UserManagerPage.tsx",
+  "private": true
+}

@@ -1,5 +1,5 @@
 {
-  "name": "QuanLyDatVeReducer",
-  "main": "./QuanLyDatVeReducer.tsx",
+  "name": "QuanLyDatVeSlice",
+  "main": "./QuanLyDatVeSlice.tsx",
   "private": true
 }

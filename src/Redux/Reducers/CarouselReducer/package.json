@@ -1,5 +1,5 @@
 {
-  "name": "CarouselReducer",
-  "main": "./CarouselReducer.tsx",
+  "name": "CarouselSlice",
+  "main": "./CarouselSlice.tsx",
   "private": true
 }

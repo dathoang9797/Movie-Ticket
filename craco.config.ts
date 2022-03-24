@@ -35,6 +35,7 @@ module.exports = {
     },
   },
   babel: {
+    presets: ['@babel/preset-typescript'],
     plugins: [
       [
         'babel-plugin-styled-components',

@@ -12,6 +12,8 @@ export type PropsTemplate = {
   Component: React.ComponentType<RouteComponentProps<PropsParams>>;
 } & RouteProps;
 
+export type PropsRouterComponent = RouteComponentProps<PropsParams>;
+
 export type ResponseData<T> = {
   statusCode: number;
   message: string;

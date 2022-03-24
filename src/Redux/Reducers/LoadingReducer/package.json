@@ -1,5 +1,5 @@
 {
-  "name": "LoadingReducer",
-  "main": "./LoadingReducer.tsx",
+  "name": "LoadingSlice",
+  "main": "./LoadingSlice.tsx",
   "private": true
 }

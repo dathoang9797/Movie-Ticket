@@ -1,23 +1,25 @@
-import React from 'react';
-import { useAppSelector } from '@Redux/hook';
-import { selectorRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelector';
 import {
   FooterContainer,
   FooterContent,
   FooterContentCopyRight,
-  FooterContentCopyRightItemRight,
   FooterContentCopyRightItemLeft,
+  FooterContentCopyRightItemRight,
   FooterContentMenuGrid,
   FooterContentMenuGridBrand,
   FooterContentMenuGridCol,
 } from '@Layouts/Footer/Footer.styles';
+import { useAppSelector } from '@Redux/hook';
+import { selectQuanLyRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelect';
+import { nanoid } from '@reduxjs/toolkit';
 import _ from 'lodash';
+import React from 'react';
 
 const Footer = () => {
-  const { heThongRapChieu } = useAppSelector(selectorRapState);
+  const { selectRapHeThongRapChieu } = selectQuanLyRapState;
+  const heThongRapChieu = useAppSelector(selectRapHeThongRapChieu);
 
   const arrHeThongRap = _.map(heThongRapChieu, (heThongRap) =>
-    _.pick(heThongRap, ['maHeThongRap', 'tenHeThongRap', 'logo'])
+    _.pick(heThongRap, ['maHeThongRap', 'tenHeThongRap', 'logo', 'idHeThongRapChieu'])
   );
 
   return (
@@ -46,8 +48,8 @@ const Footer = () => {
           <FooterContentMenuGridCol>
             <p className='pb-1 text-lg font-medium'>Category</p>
             <ul className='grid grid-cols-3'>
-              {arrHeThongRap.map((htr, index) => (
-                <li key={index}>
+              {arrHeThongRap.map((htr) => (
+                <li key={`HeThongRap-${htr.idThongTinLichHeThongRapChieu}}`}>
                   <img src={htr.logo} alt={htr.logo} className='w-14' />
                 </li>
               ))}

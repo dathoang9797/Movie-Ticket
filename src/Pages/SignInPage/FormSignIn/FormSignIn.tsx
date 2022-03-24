@@ -1,22 +1,13 @@
 import { ThongTinDangNhapVM } from '@Core/Models/NguoiDung.type';
-import {
-  FormButton,
-  FormContainer,
-  FormControl,
-  FormH1,
-  FormInput,
-  FormP,
-  FormSpan,
-  FormSpanError,
-} from '@Pages/SignInPage/FormSignIn/FormSignIn.styles';
+import { FormStyle } from '@Pages/SignInPage/FormSignIn/FormSignIn.styles';
 import { useAppDispatch } from '@Redux/hook';
-import { setUserInfoThunk } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungThunk';
+import { quanLyNguoiDungThunk } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungThunk';
 import { signInUserSchema } from '@Shared/Schema/SignInSchema';
-import { showError } from '@Utils/ShowError';
-import { message } from 'antd';
 import { useFormik } from 'formik';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+
+const { setUserInfoAsync } = quanLyNguoiDungThunk;
 
 function FormSignIn() {
   const dispatch = useAppDispatch();
@@ -27,14 +18,14 @@ function FormSignIn() {
       matKhau: '',
     },
     validationSchema: signInUserSchema,
-    onSubmit: (values) => dispatch(setUserInfoThunk(values, showError)),
+    onSubmit: (values) => dispatch(setUserInfoAsync(values)),
   });
-
+  const { handleSubmit, handleChange, errors } = formik;
   return (
-    <FormContainer onSubmit={formik.handleSubmit}>
-      <FormH1>Hello Again!</FormH1>
-      <FormP>Welcome Back</FormP>
-      <FormControl>
+    <FormStyle.FormContainer onSubmit={handleSubmit}>
+      <FormStyle.H1>Hello Again!</FormStyle.H1>
+      <FormStyle.P>Welcome Back</FormStyle.P>
+      <FormStyle.FormControl>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           className='h-5 w-5 text-gray-400'
@@ -49,15 +40,15 @@ function FormSignIn() {
             d='M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207'
           />
         </svg>
-        <FormInput
+        <FormStyle.Input
           type='text'
           name='taiKhoan'
           placeholder='Email Address'
-          onChange={formik.handleChange}
+          onChange={handleChange}
         />
-      </FormControl>
-      <FormSpanError>{formik.errors.taiKhoan}</FormSpanError>
-      <FormControl>
+      </FormStyle.FormControl>
+      <FormStyle.SpanError>{errors.taiKhoan}</FormStyle.SpanError>
+      <FormStyle.FormControl>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           className='h-5 w-5 text-gray-400'
@@ -70,19 +61,19 @@ function FormSignIn() {
             clipRule='evenodd'
           />
         </svg>
-        <FormInput
+        <FormStyle.Input
           type='text'
           placeholder='Password'
           name='matKhau'
           onChange={formik.handleChange}
         />
-      </FormControl>
-      <FormSpanError>{formik.errors.matKhau}</FormSpanError>
-      <FormButton type='submit'>Đăng Nhập</FormButton>
-      <FormSpan>
+      </FormStyle.FormControl>
+      <FormStyle.SpanError>{errors.matKhau}</FormStyle.SpanError>
+      <FormStyle.Button type='submit'>Đăng Nhập</FormStyle.Button>
+      <FormStyle.Span>
         <NavLink to='sign-up'>Bạn chưa có tài khoản ?</NavLink>
-      </FormSpan>
-    </FormContainer>
+      </FormStyle.Span>
+    </FormStyle.FormContainer>
   );
 }
 

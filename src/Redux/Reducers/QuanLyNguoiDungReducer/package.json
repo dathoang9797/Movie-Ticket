@@ -1,5 +1,5 @@
 {
-  "name": "QuanLyNguoiDungReducer",
-  "main": "./QuanLyNguoiDungReducer.tsx",
+  "name": "QuanLyNguoiDungSlice",
+  "main": "./QuanLyNguoiDungSlice.tsx",
   "private": true
 }

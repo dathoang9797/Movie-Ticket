@@ -8,6 +8,7 @@ export type Phim = {
 };
 
 export type LichChieuTheoPhim = {
+  idLichChieuTheoPhim: string;
   maLichChieu: number;
   maRap: string;
   tenRap: string;
@@ -18,9 +19,11 @@ export type LichChieuTheoPhim = {
 export type LichChieuPhim = { thoiLuong: number } & LichChieuTheoPhim;
 
 export type ThongTinPhim = {
+  idThongTinPhim: string;
+  daXoa?: boolean;
+  biDanh?: string;
   maPhim: number;
   tenPhim: string;
-  biDanh: string;
   trailer: string;
   hinhAnh: string;
   moTa: string;
@@ -33,6 +36,7 @@ export type ThongTinPhim = {
 };
 
 export type DanhSachPhim = {
+  idDanhSachPhim: string;
   lstLichChieuTheoPhim: LichChieuTheoPhim[];
 } & Pick<ThongTinPhim, 'maPhim' | 'tenPhim' | 'hinhAnh' | 'hot' | 'dangChieu' | 'sapChieu'>;
 

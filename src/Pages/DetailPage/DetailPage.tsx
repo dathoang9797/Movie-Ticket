@@ -1,59 +1,55 @@
 import Circle from '@Components/Circle';
 import TabHeThongRapChieu from '@Components/Tabs/TabHeThongRapChieu';
-import { PropsParams } from '@Core/Models/Global.type';
-import {
-  CustomCardStyle,
-  DetailContainer,
-  DetailContent,
-  DetailGridsColDesc,
-  DetailItem,
-} from '@Pages/DetailPage/DetailPage.styles';
+import { PropsRouterComponent } from '@Core/Models/Global.type';
+import { DetailStyle } from '@Pages/DetailPage/DetailPage.styles';
 import { useAppDispatch, useAppSelector } from '@Redux/hook';
-import { selectorRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelector';
-import { fectThongTinLichChieuPhimThunk } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapThunk';
+import { selectQuanLyRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelect';
+import { quanLyRapThunk } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapThunk';
 import moment from 'moment';
 import React, { useEffect } from 'react';
-import { RouteComponentProps } from 'react-router';
 
-type PropsDetailPage = RouteComponentProps<PropsParams>;
+type PropsDetailPage = PropsRouterComponent;
+
+const { getThongTinLichChieuPhimAsync } = quanLyRapThunk;
 
 function DetailPage(props: PropsDetailPage) {
   const dispatch = useAppDispatch();
-  const { filmDetail } = useAppSelector(selectorRapState);
+  const { selectRapFilmDetail } = selectQuanLyRapState;
+  const filmDetail = useAppSelector(selectRapFilmDetail);
 
   useEffect(() => {
     if (!props.match.params.maPhim) {
       return console.log('Error: maPhim is undefined');
     }
     const maPhim = +props.match.params.maPhim;
-    dispatch(fectThongTinLichChieuPhimThunk(maPhim));
+    dispatch(getThongTinLichChieuPhimAsync(maPhim));
   }, [dispatch, props.match.params.maPhim]);
 
   return (
-    <DetailContainer filmDetail={filmDetail}>
-      <CustomCardStyle effectColor='#C780FF' color='#14AEFF' blur={10} borderRadius={0}>
-        <DetailContent>
-          <DetailItem>
+    <DetailStyle.DetailContainer filmDetail={filmDetail}>
+      <DetailStyle.CustomCardStyle effectColor='#C780FF' color='#14AEFF' blur={10} borderRadius={0}>
+        <DetailStyle.DetailContent>
+          <DetailStyle.DetailItem>
             <img
               src={filmDetail.hinhAnh}
               alt={filmDetail.hinhAnh}
               className='h-72 w-52 object-cover rounded-md'
             />
-            <DetailGridsColDesc>
+            <DetailStyle.DetailGridsColDesc>
               <p className='text-lg text-white'>
                 Ngày chiếu:{moment(filmDetail.ngayKhoiChieu).format('DD.MM.YYYY')}
               </p>
               <p className='text-2xl text-white  mb-5'>{filmDetail.tenPhim}</p>
               <p className='text-sm text-white'>{filmDetail.moTa}</p>
-            </DetailGridsColDesc>
+            </DetailStyle.DetailGridsColDesc>
             <Circle danhGia={filmDetail.danhGia} />
-          </DetailItem>
-          <DetailItem>
+          </DetailStyle.DetailItem>
+          <DetailStyle.DetailItem>
             <TabHeThongRapChieu heThongRapChieu={filmDetail.heThongRapChieu} />
-          </DetailItem>
-        </DetailContent>
-      </CustomCardStyle>
-    </DetailContainer>
+          </DetailStyle.DetailItem>
+        </DetailStyle.DetailContent>
+      </DetailStyle.CustomCardStyle>
+    </DetailStyle.DetailContainer>
   );
 }
 

@@ -1,5 +1,6 @@
 import TabCumRapChieu from '@Components/Tabs/TabHeThongRapChieu/TabCumRapChieu';
 import { HeThongRapChieu } from '@Core/Models/Rap.type';
+import { nanoid } from '@reduxjs/toolkit';
 import { Tabs } from 'antd';
 import React from 'react';
 
@@ -16,10 +17,10 @@ function TabHeThongRapChieu({ heThongRapChieu }: PropsHeThongRapChieu) {
         <TabPane tab='Lịch chiếu' key='1'>
           <div>
             <Tabs tabPosition='left'>
-              {heThongRapChieu?.map((htr, index) => {
+              {heThongRapChieu?.map((htr) => {
                 return (
                   <TabPane
-                    key={index}
+                    key={`HeThongRapChieu-${htr.idHeThongRapChieu}`}
                     tab={
                       <div>
                         <img
@@ -33,8 +34,11 @@ function TabHeThongRapChieu({ heThongRapChieu }: PropsHeThongRapChieu) {
                       </div>
                     }
                   >
-                    {htr.cumRapChieu.map((cumRapChieu, index) => (
-                      <TabCumRapChieu cumRapChieu={cumRapChieu} key={index} />
+                    {htr.cumRapChieu.map((cumRapChieu) => (
+                      <TabCumRapChieu
+                        cumRapChieu={cumRapChieu}
+                        key={`CumRapChieu-${cumRapChieu.idCumRapChieu}`}
+                      />
                     ))}
                   </TabPane>
                 );

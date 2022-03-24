@@ -3,25 +3,36 @@ import HomeMenu from '@Pages/HomePage/HomeMenu';
 import { HomePageContainer } from '@Pages/HomePage/HomePage.styles';
 import MultipleItems from '@Pages/HomePage/MultipleSlick';
 import { useAppDispatch, useAppSelector } from '@Redux/hook';
-import { selectorCarouselState } from '@Redux/Reducers/CarouselReducer/CarouselSelector';
-import { fetchCarouselThunk } from '@Redux/Reducers/CarouselReducer/CarouselThunk';
-import { selectorFilmState } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimSelector';
-import { fetchFilmThunk } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimThunk';
-import { selectorRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelector';
-import { fetchCumRapThunk } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapThunk';
+import { selectCarouselState } from '@Redux/Reducers/CarouselReducer/CarouselSelect';
+import { getCarouselAsync } from '@Redux/Reducers/CarouselReducer/CarouselThunk';
+import { selectQuanLyPhimState } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimSelect';
+import { quanLyPhimThunk } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimThunk';
+import { selectQuanLyRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelect';
+import { quanLyRapThunk } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapThunk';
 import React, { useEffect } from 'react';
+
+const { getFilmAsync } = quanLyPhimThunk;
+const { getCumRapAsync } = quanLyRapThunk;
 
 function HomePage() {
   const dispatch = useAppDispatch();
+  const { selectFilmArrFilm, selectFilmDangChieu, selectFilmSapChieu } = selectQuanLyPhimState;
+  const { selectRapHeThongRapChieu } = selectQuanLyRapState;
+  const { selectCarouselArrImg } = selectCarouselState;
+  const arrFilm = useAppSelector(selectFilmArrFilm);
+  const dangChieu = useAppSelector(selectFilmDangChieu);
+  const sapChieu = useAppSelector(selectFilmSapChieu);
+  const heThongRapChieu = useAppSelector(selectRapHeThongRapChieu);
+  const arrImg = useAppSelector(selectCarouselArrImg);
 
-  const { arrImg } = useAppSelector(selectorCarouselState);
-  const { arrFilm, dangChieu, sapChieu } = useAppSelector(selectorFilmState);
-  const { heThongRapChieu } = useAppSelector(selectorRapState);
-
-  useEffect(() => dispatch(fetchFilmThunk()), [dispatch]);
-  useEffect(() => dispatch(fetchCumRapThunk()), [dispatch]);
-  useEffect(() => dispatch(fetchCarouselThunk()), [dispatch]);
-
+  useEffect(() => {
+    Promise.all([
+      dispatch(getFilmAsync()),
+      dispatch(getCumRapAsync()),
+      dispatch(getCarouselAsync()),
+    ]);
+  }, [dispatch]);
+  console.log('render');
   return (
     <HomePageContainer>
       <HomeCarousel arrImg={arrImg} />

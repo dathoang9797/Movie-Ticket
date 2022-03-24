@@ -1,10 +1,5 @@
 import { Banner } from '@Core/Models/Banner.type';
-import {
-  CarouselContainer,
-  CarouselItem,
-  CarouselItemImage,
-  CarouselStyle,
-} from '@Pages/HomePage/HomeCarousel/HomeCarousel.styles';
+import { CarouselStyle } from '@Pages/HomePage/HomeCarousel/HomeCarousel.styles';
 import React from 'react';
 
 type PropsHomeCarousel = {
@@ -13,18 +8,27 @@ type PropsHomeCarousel = {
 
 function HomeCarousel({ arrImg }: PropsHomeCarousel) {
   const renderCarousel = () => {
-    return arrImg.map((item, index) => {
+    return arrImg.map((carouselItem) => {
       return (
-        <CarouselContainer key={index}>
-          <CarouselItem image={item.hinhAnh}>
-            <CarouselItemImage src={item.hinhAnh} alt={item.hinhAnh} className='w-full opacity-0' />
-          </CarouselItem>
-        </CarouselContainer>
+        <CarouselStyle.CarouselItem
+          image={carouselItem.hinhAnh}
+          key={`CarouselContainer-${carouselItem.idBanner}`}
+        >
+          <CarouselStyle.CarouselItemImage
+            src={carouselItem.hinhAnh}
+            alt={carouselItem.hinhAnh}
+            className='w-full opacity-0'
+          />
+        </CarouselStyle.CarouselItem>
       );
     });
   };
 
-  return <CarouselStyle effect='fade'>{renderCarousel()}</CarouselStyle>;
+  return (
+    <CarouselStyle.CarouselContainer effect='fade'>
+      {renderCarousel()}
+    </CarouselStyle.CarouselContainer>
+  );
 }
 
 export default React.memo(HomeCarousel);

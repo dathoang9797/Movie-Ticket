@@ -1,86 +1,72 @@
-import { CloseOutlined, UserOutlined, SmileOutlined } from '@ant-design/icons';
+import { CloseOutlined, UserOutlined } from '@ant-design/icons';
 import { Ghe } from '@Core/Models/Ghe.type';
 import { NguoiDungVM } from '@Core/Models/NguoiDung.type';
-import {
-  GheDaDat,
-  GheDaDuocDat,
-  GheDangDat,
-  GheThuong,
-  GheVip,
-  GheKhanhDangDat,
-} from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe/CheckoutGhe.styles';
+import { GheStyle } from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe/CheckoutGhe.styles';
 import { useAppDispatch } from '@Redux/hook';
-import { datGheThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
-import { showError } from '@Utils/ShowError';
+import { quanLyDatVeThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
 import React from 'react';
+import { SmileOutlined } from '@ant-design/icons';
 
 type PropsCheckoutGhe = {
   ghe: Ghe;
   userInfo: Omit<NguoiDungVM, 'matKhau'>;
-  danhSachGheDangDat: Ghe[];
-  danhSachGheKhachDat: Ghe[];
   maLichChieu: string;
 };
 
+const { setDatGheAsync } = quanLyDatVeThunk;
+
 function CheckoutGhe(props: PropsCheckoutGhe) {
   const dispatch = useAppDispatch();
-  const { ghe, userInfo, danhSachGheDangDat, danhSachGheKhachDat, maLichChieu } = props;
-  const indexGhe = danhSachGheDangDat.findIndex((gheDangDat) => gheDangDat.maGhe === ghe.maGhe);
-  const indexGheKD = danhSachGheKhachDat.findIndex(
-    (gheKhachDat) => gheKhachDat.maGhe === ghe.maGhe
-  );
+  const { ghe, userInfo, maLichChieu } = props;
+  const { taiKhoan } = userInfo;
+  const { taiKhoanNguoiDat, loaiGhe, daDat, stt } = ghe;
+  console.log('CheckoutGhe render');
+
+  const handleDatGhe = () => {
+    const params = { ghe, maLichChieu: +maLichChieu };
+    dispatch(setDatGheAsync(params));
+  };
 
   const checkGhe = () => {
     switch (true) {
-      case indexGheKD !== -1: {
+      case !daDat && ghe.status?.length !== 0 && taiKhoan !== taiKhoanNguoiDat: {
         return (
-          <GheKhanhDangDat>
+          <GheStyle.GheKhanhDangDat>
             <SmileOutlined />
-          </GheKhanhDangDat>
-        );
-      }
-      case ghe.loaiGhe === 'Vip' && indexGhe === -1: {
-        return (
-          <GheVip onClick={() => dispatch(datGheThunk(ghe, +maLichChieu, showError))}>
-            {ghe.stt}
-          </GheVip>
+          </GheStyle.GheKhanhDangDat>
         );
       }
 
-      case ghe.daDat && userInfo.taiKhoan !== ghe.taiKhoanNguoiDat: {
+      case daDat && taiKhoan !== taiKhoanNguoiDat: {
         return (
-          <GheDaDat disabled onClick={() => dispatch(datGheThunk(ghe, +maLichChieu, showError))}>
+          <GheStyle.GheDaDat disabled onClick={handleDatGhe}>
             <CloseOutlined style={{ fontWeight: 'bold', lineHeight: '35px', verticalAlign: 0 }} />
-          </GheDaDat>
+          </GheStyle.GheDaDat>
         );
       }
 
-      case userInfo.taiKhoan === ghe.taiKhoanNguoiDat: {
+      case daDat && taiKhoan === taiKhoanNguoiDat: {
         return (
-          <GheDaDuocDat>
+          <GheStyle.GheUserDaDat>
             <UserOutlined />
-          </GheDaDuocDat>
+          </GheStyle.GheUserDaDat>
         );
       }
 
-      case indexGhe !== -1 || (ghe.loaiGhe === 'Vip' && indexGhe === -1): {
-        return (
-          <GheDangDat onClick={() => dispatch(datGheThunk(ghe, +maLichChieu, showError))}>
-            {ghe.stt}
-          </GheDangDat>
-        );
+      case !daDat && loaiGhe === 'Vip' && !ghe.status?.split('-').reverse()[0]: {
+        return <GheStyle.GheVip onClick={handleDatGhe}>{stt}</GheStyle.GheVip>;
+      }
+
+      case !daDat && taiKhoan === ghe.status?.split('-').reverse()[0]: {
+        return <GheStyle.GheDangDat onClick={handleDatGhe}>{stt}</GheStyle.GheDangDat>;
       }
 
       default: {
-        return (
-          <GheThuong onClick={() => dispatch(datGheThunk(ghe, +maLichChieu, showError))}>
-            {ghe.stt}
-          </GheThuong>
-        );
+        return <GheStyle.GheThuong onClick={handleDatGhe}>{ghe.stt}</GheStyle.GheThuong>;
       }
     }
   };
   return <>{checkGhe()}</>;
 }
 
-export default CheckoutGhe;
+export default React.memo(CheckoutGhe);

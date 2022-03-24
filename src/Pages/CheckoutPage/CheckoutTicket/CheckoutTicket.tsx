@@ -1,61 +1,54 @@
 import { Ghe } from '@Core/Models/Ghe.type';
-import { PropsParams } from '@Core/Models/Global.type';
+import { PropsRouterComponent } from '@Core/Models/Global.type';
 import { NguoiDungVM } from '@Core/Models/NguoiDung.type';
 import { DanhSachPhongVe, DanhSachVeDat } from '@Core/Models/Ve.type';
 import CheckoutGhe from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe';
-import {
-  GheDaDat,
-  GheDaDuocDat,
-  GheDangDat,
-  GheKhanhDangDat,
-  GheThuong,
-  GheVip,
-} from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe/CheckoutGhe.styles';
-import {
-  CheckoutGridColSpan3,
-  CheckoutGridColSpan9,
-  CheckoutTicketButtonDatVe,
-  CheckoutTicketCart,
-  CheckoutTicketCartContentGhe,
-  CheckoutTicketCartGhe,
-  CheckoutTicketCartListGheDangDat,
-  CheckoutTicketCartTotalPrice,
-  CheckoutTicketContainer,
-  CheckoutTicketContentDatVe,
-  CheckoutTicketContentScreen,
-  CheckoutTicketContentTable,
-  CheckoutTicketGrid,
-  CheckoutTicketIconCheckOutlined,
-} from '@Pages/CheckoutPage/CheckoutTicket/CheckoutTicket.styles';
+import { GheStyle } from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe/CheckoutGhe.styles';
+import { CheckoutStyle } from '@Pages/CheckoutPage/CheckoutTicket/CheckoutTicket.styles';
 import { useAppDispatch } from '@Redux/hook';
-import { datveThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
-import { showError } from '@Utils/ShowError';
+import { quanLyDatVeThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
+import { showError } from '@Utils/Alert/PopUp';
 import _ from 'lodash';
 import React, { Fragment } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 
 type PropsCheckoutTicket = {
   userInfo: Omit<NguoiDungVM, 'matKhau'>;
   chiTietPhongVe: DanhSachPhongVe;
-  danhSachGheDangDat: Ghe[];
-  danhSachGheKhachDat: Ghe[];
-} & RouteComponentProps<PropsParams>;
+  danhSachGheDangDat: Ghe[] | -1;
+  danhSachGheRender: Ghe[];
+} & PropsRouterComponent;
+
+const { setDatveAsync } = quanLyDatVeThunk;
 
 function CheckoutTicket(props: PropsCheckoutTicket) {
-  const { match, danhSachGheDangDat, chiTietPhongVe, userInfo, danhSachGheKhachDat } = props;
-  const { danhSachGhe, thongTinPhim } = chiTietPhongVe;
+  const { match, danhSachGheDangDat, chiTietPhongVe, userInfo, danhSachGheRender } = props;
+  const { thongTinPhim } = chiTietPhongVe;
   const dispatch = useAppDispatch();
 
+  console.log('CheckoutTicket render');
+  const handleDatVe = () => {
+    if (!match.params.maLichChieu) {
+      return showError('Không có mã lịch chiếu');
+    }
+    if (danhSachGheDangDat === -1) {
+      showError('Ban chưa chọn ghế nào');
+      return;
+    }
+    const danhSachVe: DanhSachVeDat = {
+      maLichChieu: +match.params.maLichChieu,
+      danhSachVe: danhSachGheDangDat,
+    };
+    dispatch(setDatveAsync(danhSachVe));
+  };
+
   const renderSeats = () => {
-    return danhSachGhe.map((ghe, index) => {
+    return danhSachGheRender.map((ghe, index) => {
       return (
-        <Fragment key={index}>
+        <Fragment key={`CheckoutTicket-${ghe.maGhe}-${index}}`}>
           {
             <CheckoutGhe
               ghe={ghe}
               userInfo={userInfo}
-              danhSachGheDangDat={danhSachGheDangDat}
-              danhSachGheKhachDat={danhSachGheKhachDat}
               maLichChieu={match.params.maLichChieu ?? ''}
             />
           }
@@ -66,14 +59,14 @@ function CheckoutTicket(props: PropsCheckoutTicket) {
   };
 
   return (
-    <CheckoutTicketContainer>
-      <CheckoutTicketGrid>
-        <CheckoutGridColSpan9>
-          <CheckoutTicketContentScreen>
+    <CheckoutStyle.CheckoutTicketContainer>
+      <CheckoutStyle.CheckoutTicketGrid>
+        <CheckoutStyle.CheckoutGridColSpan9>
+          <CheckoutStyle.CheckoutTicketContentScreen>
             <h3>screen</h3>
-          </CheckoutTicketContentScreen>
+          </CheckoutStyle.CheckoutTicketContentScreen>
           <div>{renderSeats()}</div>
-          <CheckoutTicketContentTable>
+          <CheckoutStyle.CheckoutTicketContentTable>
             <table>
               <thead>
                 <tr>
@@ -88,42 +81,42 @@ function CheckoutTicket(props: PropsCheckoutTicket) {
               <tbody>
                 <tr>
                   <td>
-                    <GheThuong>
-                      <CheckoutTicketIconCheckOutlined />
-                    </GheThuong>
+                    <GheStyle.GheThuong>
+                      <CheckoutStyle.CheckoutTicketIconCheckOutlined />
+                    </GheStyle.GheThuong>
                   </td>
                   <td>
-                    <GheDangDat>
-                      <CheckoutTicketIconCheckOutlined />
-                    </GheDangDat>
+                    <GheStyle.GheDangDat>
+                      <CheckoutStyle.CheckoutTicketIconCheckOutlined />
+                    </GheStyle.GheDangDat>
                   </td>
                   <td>
-                    <GheVip>
-                      <CheckoutTicketIconCheckOutlined />
-                    </GheVip>
+                    <GheStyle.GheVip>
+                      <CheckoutStyle.CheckoutTicketIconCheckOutlined />
+                    </GheStyle.GheVip>
                   </td>
                   <td>
-                    <GheDaDat>
-                      <CheckoutTicketIconCheckOutlined />
-                    </GheDaDat>
+                    <GheStyle.GheDaDat>
+                      <CheckoutStyle.CheckoutTicketIconCheckOutlined />
+                    </GheStyle.GheDaDat>
                   </td>
                   <td>
-                    <GheDaDuocDat>
-                      <CheckoutTicketIconCheckOutlined />
-                    </GheDaDuocDat>
+                    <GheStyle.GheUserDaDat>
+                      <CheckoutStyle.CheckoutTicketIconCheckOutlined />
+                    </GheStyle.GheUserDaDat>
                   </td>
                   <td>
-                    <GheKhanhDangDat>
-                      <CheckoutTicketIconCheckOutlined />
-                    </GheKhanhDangDat>
+                    <GheStyle.GheKhanhDangDat>
+                      <CheckoutStyle.CheckoutTicketIconCheckOutlined />
+                    </GheStyle.GheKhanhDangDat>
                   </td>
                 </tr>
               </tbody>
             </table>
-          </CheckoutTicketContentTable>
-        </CheckoutGridColSpan9>
-        <CheckoutGridColSpan3>
-          <CheckoutTicketCart>
+          </CheckoutStyle.CheckoutTicketContentTable>
+        </CheckoutStyle.CheckoutGridColSpan9>
+        <CheckoutStyle.CheckoutGridColSpan3>
+          <CheckoutStyle.CheckoutTicketCart>
             <h2>0 đ</h2>
             <h3>{thongTinPhim.tenPhim}</h3>
             <p>
@@ -133,27 +126,33 @@ function CheckoutTicket(props: PropsCheckoutTicket) {
               Ngày chiếu: {thongTinPhim.ngayChieu} - {thongTinPhim.gioChieu} RẠP 5
             </p>
             <hr />
-            <CheckoutTicketGrid>
-              <CheckoutTicketCartContentGhe>
-                <CheckoutTicketCartListGheDangDat>
+            <CheckoutStyle.CheckoutTicketGrid>
+              <CheckoutStyle.CheckoutTicketCartContentGhe>
+                <CheckoutStyle.CheckoutTicketCartListGheDangDat>
                   <span>Ghế </span>
-                  {_.sortBy(danhSachGheDangDat, ['stt']).map((gheDD, index) => {
-                    return <CheckoutTicketCartGhe key={index}>{gheDD.stt}</CheckoutTicketCartGhe>;
-                  })}
-                </CheckoutTicketCartListGheDangDat>
-              </CheckoutTicketCartContentGhe>
+                  {danhSachGheDangDat !== -1 &&
+                    _.sortBy(danhSachGheDangDat, ['stt']).map((gheDD, index) => {
+                      return (
+                        <CheckoutStyle.CheckoutTicketCartGhe key={`GheDangDat-${gheDD.maGhe}`}>
+                          {gheDD.stt}
+                        </CheckoutStyle.CheckoutTicketCartGhe>
+                      );
+                    })}
+                </CheckoutStyle.CheckoutTicketCartListGheDangDat>
+              </CheckoutStyle.CheckoutTicketCartContentGhe>
 
-              <CheckoutTicketCartTotalPrice>
+              <CheckoutStyle.CheckoutTicketCartTotalPrice>
                 <span>
-                  {danhSachGheDangDat
-                    .reduce((tongTien, gheDD) => {
-                      return (tongTien += gheDD.giaVe);
-                    }, 0)
-                    .toLocaleString()}
+                  {danhSachGheDangDat !== -1 &&
+                    danhSachGheDangDat
+                      .reduce((tongTien, gheDD) => {
+                        return (tongTien += gheDD.giaVe);
+                      }, 0)
+                      .toLocaleString()}
                 </span>
-              </CheckoutTicketCartTotalPrice>
-            </CheckoutTicketGrid>
-          </CheckoutTicketCart>
+              </CheckoutStyle.CheckoutTicketCartTotalPrice>
+            </CheckoutStyle.CheckoutTicketGrid>
+          </CheckoutStyle.CheckoutTicketCart>
           <hr />
 
           <div className='my-5'>
@@ -165,25 +164,15 @@ function CheckoutTicket(props: PropsCheckoutTicket) {
             {userInfo.soDT}
           </div>
           <hr />
-          <CheckoutTicketContentDatVe>
-            <CheckoutTicketButtonDatVe
-              onClick={() => {
-                if (match.params.maLichChieu) {
-                  const danhSachVe: DanhSachVeDat = {
-                    maLichChieu: +match.params.maLichChieu,
-                    danhSachVe: danhSachGheDangDat,
-                  };
-                  dispatch(datveThunk(danhSachVe, showError));
-                }
-              }}
-            >
+          <CheckoutStyle.CheckoutTicketContentDatVe>
+            <CheckoutStyle.CheckoutTicketButtonDatVe onClick={handleDatVe}>
               ĐẶT VÉ
-            </CheckoutTicketButtonDatVe>
-          </CheckoutTicketContentDatVe>
-        </CheckoutGridColSpan3>
-      </CheckoutTicketGrid>
-    </CheckoutTicketContainer>
+            </CheckoutStyle.CheckoutTicketButtonDatVe>
+          </CheckoutStyle.CheckoutTicketContentDatVe>
+        </CheckoutStyle.CheckoutGridColSpan3>
+      </CheckoutStyle.CheckoutTicketGrid>
+    </CheckoutStyle.CheckoutTicketContainer>
   );
 }
 
-export default CheckoutTicket;
+export default React.memo(CheckoutTicket);

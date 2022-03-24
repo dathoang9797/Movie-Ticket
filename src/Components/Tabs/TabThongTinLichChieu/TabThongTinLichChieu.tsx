@@ -2,6 +2,7 @@ import TabCumRap from '@Components/Tabs/TabThongTinLichChieu/TabCumRap';
 import TabDanhSachPhim from '@Components/Tabs/TabThongTinLichChieu/TabDanhSachPhim/TabDanhSachPhim';
 import { TabThongTinLichChieuContainer } from '@Components/Tabs/TabThongTinLichChieu/TabThongTinLichChieu.styles';
 import { ThongTinLichChieuHeThongRap } from '@Core/Models/Rap.type';
+import { nanoid } from '@reduxjs/toolkit';
 import { Tabs } from 'antd';
 import React from 'react';
 
@@ -15,17 +16,21 @@ function TabThongTinLichChieu({ ThongTinLichChieuHeThongRap }: PropsThongTinLich
   return (
     <TabThongTinLichChieuContainer>
       <Tabs tabPosition='left' className='h-full'>
-        {ThongTinLichChieuHeThongRap?.map((rap, index) => {
+        {ThongTinLichChieuHeThongRap?.map((rap) => {
           return (
             <TabPane
-              key={index}
+              key={`Rap-${rap.idThongTinLichHeThongRapChieu}-${rap.maHeThongRap}`}
               tab={<img src={rap.logo} alt={rap.logo} width='50' className='h-full' />}
             >
               <Tabs tabPosition='left' className='overflow-y-auto h-140'>
-                {rap.lstCumRap.map((cumRap, index) => (
-                  <TabPane tab={<TabCumRap cumRap={cumRap} />} key={index}>
-                    {cumRap.danhSachPhim.map((danhSachPhim, index) => (
-                      <TabDanhSachPhim danhSachPhim={danhSachPhim} key={index} cumRap={cumRap} />
+                {rap.lstCumRap.map((cumRap) => (
+                  <TabPane tab={<TabCumRap cumRap={cumRap} />} key={`CumRap-${cumRap.idCumRap}`}>
+                    {cumRap.danhSachPhim.map((danhSachPhim) => (
+                      <TabDanhSachPhim
+                        danhSachPhim={danhSachPhim}
+                        key={`DanhSachPhim-${danhSachPhim.idDanhSachPhim}`}
+                        cumRap={cumRap}
+                      />
                     ))}
                   </TabPane>
                 ))}

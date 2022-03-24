@@ -1,0 +1,5 @@
+{
+  "name": "AddFilmsPage",
+  "main": "./AddFilmsPage.tsx",
+  "private": true
+}

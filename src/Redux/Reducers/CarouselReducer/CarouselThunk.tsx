@@ -1,16 +1,14 @@
-import { AppThunk } from '@Redux/store';
-import { fetchCarouselAction } from '@Redux/Reducers/CarouselReducer/CarouselAction';
+import { Banner } from '@Core/Models/Banner.type';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { quanLyPhimService } from '@Services/QuanLyPhimService';
 
-export const fetchCarouselThunk = (): AppThunk => {
-  return async (dispatch) => {
+export const getCarouselAsync = createAsyncThunk<Banner[], void, { rejectValue: string }>(
+  'carouselReducer/fetchCarouselBanner',
+  async (_, { rejectWithValue }) => {
     const result = await quanLyPhimService.layDanhSachBanner();
-
     if (typeof result.content === 'string') {
-      console.log(result.content);
-      return;
+      return rejectWithValue(result.content);
     }
-
-    dispatch(fetchCarouselAction(result.content));
-  };
-};
+    return result.content;
+  }
+);

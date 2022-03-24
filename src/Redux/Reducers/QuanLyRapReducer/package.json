@@ -1,5 +1,5 @@
 {
-  "name": "QuanLyRapReducer",
-  "main": "./QuanLyRapReducer.tsx",
+  "name": "QuanLyRapSlice",
+  "main": "./QuanLyRapSlice.tsx",
   "private": true
 }

@@ -11,6 +11,7 @@ export type DanhSachVeDat = {
 };
 
 export type ThongTinVePhim = {
+  idThongTinVePhim: string;
   maLichChieu: number;
   tenCumRap: string;
   tenRap: string;

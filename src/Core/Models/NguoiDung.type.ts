@@ -2,8 +2,10 @@ import { Rap, CumRap, ThongTinHeThongRap } from '@Core/Models/Rap.type';
 import { Ghe } from '@Core/Models/Ghe.type';
 import { VeVM } from '@Core/Models/Ve.type';
 
+type IdDanhSachNguoiDung = { idDanhSachNguoiDung: string };
+
 type DanhSachNguoiDung = Pick<
-  Rap & CumRap & ThongTinHeThongRap & Ghe,
+  Rap & CumRap & ThongTinHeThongRap & Ghe & IdDanhSachNguoiDung,
   | 'maRap'
   | 'tenRap'
   | 'maCumRap'
@@ -12,9 +14,11 @@ type DanhSachNguoiDung = Pick<
   | 'tenHeThongRap'
   | 'maGhe'
   | 'tenGhe'
+  | 'idDanhSachNguoiDung'
 >[];
 
 type ThongTinVeNguoiDung = VeVM & {
+  idNguoiDung: string;
   tenPhim: string;
   hinhAnh: string;
   ngayDat: string;

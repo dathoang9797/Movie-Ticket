@@ -36,7 +36,8 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    fallbackLng: 'vi',
+    fallbackLng: 'en',
+    lng: 'en',
     debug: true,
     resources,
     interpolation: {

@@ -1,21 +1,22 @@
 import Spinner from '@Components/Spinner';
+import { useAppSelector } from '@Redux/hook';
+import { selectIsLoadingState } from '@Redux/Reducers/LoadingReducer/LoadingSelect';
 import { routerTemplates } from '@Routers/Router';
 import History from '@Utils/Libs/History';
-import React, { Fragment, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Router, Switch } from 'react-router-dom';
-import GlobalStyles from './Globalstyle';
+import GlobalStyles from './Globalstyles';
 
 function App() {
+  const isLoading = useAppSelector(selectIsLoadingState);
   return (
-    <Fragment>
-      <Spinner />
+    <Suspense fallback={<Spinner />}>
+      {isLoading ? <Spinner /> : null}
       <GlobalStyles />
-      <Suspense fallback={<Fragment></Fragment>}>
-        <Router history={History}>
-          <Switch>{routerTemplates}</Switch>
-        </Router>
-      </Suspense>
-    </Fragment>
+      <Router history={History}>
+        <Switch>{routerTemplates}</Switch>
+      </Router>
+    </Suspense>
   );
 }
 

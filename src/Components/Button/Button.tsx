@@ -7,8 +7,6 @@ type PropsButton = Pick<
 >;
 
 function Button({ children, onClick, type, className }: PropsButton) {
-  console.log('button');
-
   return (
     <ButtonStyle onClick={onClick} className={className}>
       {children}

@@ -1,19 +1,11 @@
-import {
-  ThunkAction,
-  applyMiddleware,
-  combineReducers,
-  createStore,
-  AnyAction,
-  ThunkDispatch,
-} from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-import thunk from 'redux-thunk';
-import CarouselReducer from '@Redux/Reducers/CarouselReducer/CarouselReducer';
-import QuanLyPhimReducer from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimReducer';
-import QuanLyRapReducer from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapReducer';
-import QuanLyNguoiDungReducer from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungReducer';
-import QuanLyDatVeReducer from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeReducer';
+import CarouselReducer from '@Redux/Reducers/CarouselReducer';
 import LoadingReducer from '@Redux/Reducers/LoadingReducer';
+import QuanLyDatVeReducer from '@Redux/Reducers/QuanLyDatVeReducer';
+import QuanLyNguoiDungReducer from '@Redux/Reducers/QuanLyNguoiDungReducer';
+import QuanLyPhimReducer from '@Redux/Reducers/QuanLyPhimReducer';
+import QuanLyRapReducer from '@Redux/Reducers/QuanLyRapReducer';
+import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 
 export const rootReducer = combineReducers({
   CarouselReducer,
@@ -24,8 +16,14 @@ export const rootReducer = combineReducers({
   LoadingReducer,
 });
 
-export const store = createStore(rootReducer, applyMiddleware(logger, thunk));
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(logger),
+});
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = ThunkDispatch<RootState, any, AnyAction>;
+export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;

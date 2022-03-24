@@ -1,5 +1,5 @@
 {
-  "name": "QuanLyPhimReducer",
-  "main": "./QuanLyPhimReducer.tsx",
+  "name": "QuanLyPhimSlice",
+  "main": "./QuanLyPhimSlice.tsx",
   "private": true
 }

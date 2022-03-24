@@ -1,4 +1,6 @@
 export type Ghe = {
+  idGhe: string;
+  status?: string;
   maGhe: number;
   tenGhe: string;
   maRap: number;
@@ -6,7 +8,7 @@ export type Ghe = {
   stt: string;
   giaVe: number;
   daDat: boolean;
-  taiKhoanNguoiDat: string;
+  taiKhoanNguoiDat: string | null;
 };
 
 export type DanhSachGheDaDat = {

@@ -1,33 +1,48 @@
-import { Phim } from '@Core/Models/Phim.type';
-import {
-  fetchCumRapAction,
-  fetchThongTinLichChieuPhimAction,
-} from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapAction';
-import { AppThunk } from '@Redux/store';
+import { Phim, ThongTinLichChieuPhim } from '@Core/Models/Phim.type';
+import { ThongTinLichChieuHeThongRap } from '@Core/Models/Rap.type';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { quanLyRapService } from '@Services/QuanLyRapService';
 
-export const fetchCumRapThunk = (): AppThunk => {
-  return async (dispatch) => {
-    const groupId = process.env.REACT_APP_MA_NHOM_GP01;
-    const result = await quanLyRapService.layThongTinLichChieuHeThongRap(undefined, groupId);
+const getCumRapAsync = createAsyncThunk<
+  ThongTinLichChieuHeThongRap[],
+  void,
+  { rejectValue: string }
+>('quanLyRapReducer/getCumRapAsync', async (_, { rejectWithValue }) => {
+  const groupId = process.env.REACT_APP_MA_NHOM_GP01;
+  const result = await quanLyRapService.layThongTinLichChieuHeThongRap(undefined, groupId);
 
-    if (typeof result.content === 'string') {
-      console.log(result.content);
-      return;
-    }
-    dispatch(fetchCumRapAction(result.content));
-  };
-};
+  if (typeof result.content === 'string') {
+    return rejectWithValue(result.content);
+  }
+  return result.content;
+});
 
-export const fectThongTinLichChieuPhimThunk = (MaPhim: Phim['maPhim']): AppThunk => {
-  return async (dispatch) => {
-    const result = await quanLyRapService.layThongTinLichChieuPhim(MaPhim);
+const getThongTinLichChieuPhimAsync = createAsyncThunk<
+  ThongTinLichChieuPhim,
+  Phim['maPhim'],
+  { rejectValue: string }
+>('quanLyRapReducer/getThongTinLichChieuPhimAsync', async (maPhim, { rejectWithValue }) => {
+  const result = await quanLyRapService.layThongTinLichChieuPhim(maPhim);
+  if (typeof result.content === 'string') {
+    return rejectWithValue(result.content);
+  }
+  return result.content;
+});
 
-    if (typeof result.content === 'string') {
-      console.log(result.content);
-      return;
-    }
+const getThongTinHeThongRapAsync = createAsyncThunk<
+  ThongTinLichChieuPhim,
+  Phim['maPhim'],
+  { rejectValue: string }
+>('quanLyRapReducer/getThongTinHeThongRapAsync', async (maPhim, { rejectWithValue }) => {
+  const result = await quanLyRapService.layThongTinLichChieuPhim(maPhim);
+  if (typeof result.content === 'string') {
+    return rejectWithValue(result.content);
+  }
+  return result.content;
+});
 
-    dispatch(fetchThongTinLichChieuPhimAction(result.content));
-  };
+export const quanLyRapThunk = {
+  getCumRapAsync,
+  getThongTinLichChieuPhimAsync,
+  getThongTinHeThongRapAsync,
 };

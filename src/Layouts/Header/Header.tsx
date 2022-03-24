@@ -15,7 +15,7 @@ import { NavLink } from 'react-router-dom';
 import { Select } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@Redux/hook';
-import { selectorNguoiDungState } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungSelector';
+import { selectNguoiDungState } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungSelect';
 import _ from 'lodash';
 import { localService } from '@Services/LocalStorageService';
 import History from '@Utils/Libs/History';
@@ -23,11 +23,18 @@ import History from '@Utils/Libs/History';
 const { Option } = Select;
 
 const Header = () => {
-  const { userInfo } = useAppSelector(selectorNguoiDungState);
+  const { selectUserInfo } = selectNguoiDungState;
+  const userInfo = useAppSelector(selectUserInfo);
   const { t, i18n } = useTranslation();
 
   const handleChange = (value: string) => {
     i18n.changeLanguage(value);
+  };
+
+  const handleLogout = () => {
+    localService.removeUserInfo();
+    History.push(process.env.REACT_APP_LINK_HOME);
+    window.location.reload();
   };
 
   return (
@@ -57,13 +64,13 @@ const Header = () => {
           {_.isEmpty(userInfo) ? (
             <>
               <HeaderSignIn
-                to='/sign-in'
+                to={process.env.REACT_APP_LINK_SIGN_IN}
                 className='border-violet-600 dark:bg-violet-600 dark:text-gray-900'
               >
                 {t('signin')}
               </HeaderSignIn>
               <HeaderSignUp
-                to='/sign-up'
+                to={process.env.REACT_APP_LINK_SIGN_UP}
                 className='border-violet-600 dark:bg-violet-600 dark:text-gray-900'
               >
                 {t('signup')}
@@ -71,15 +78,8 @@ const Header = () => {
             </>
           ) : (
             <Fragment>
-              <NavLink to={'/profile'}> Hello {userInfo.taiKhoan}</NavLink>
-              <button
-                className='text-yellow-500  mx-3'
-                onClick={() => {
-                  localService.removeUserInfo();
-                  History.push(process.env.REACT_APP_LINK_HOME);
-                  window.location.reload();
-                }}
-              >
+              <NavLink to={process.env.REACT_APP_LINK_PROFILE}> Hello {userInfo.taiKhoan}</NavLink>
+              <button className='text-yellow-500  mx-3' onClick={handleLogout}>
                 Đăng Xuất
               </button>
             </Fragment>

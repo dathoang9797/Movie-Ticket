@@ -8,11 +8,31 @@ type MyHeader = {
   };
 };
 declare module 'axios' {
-  export interface AxiosRequestConfig {
-    headers?: AxiosRequestHeaders & MyHeader;
-  }
   export interface AxiosStatic extends AxiosInstance {
     create(config?: AxiosRequestConfig & MyHeader): AxiosInstance;
+  }
+
+  export interface MyAxiosResponse extends AxiosResponse {
+    config: AxiosRequestConfig<D> & MyHeader;
+  }
+
+  export interface MyAxiosError extends AxiosError {
+    config: AxiosRequestConfig<D> & MyHeader;
+  }
+
+  export interface AxiosInstance extends Axios {
+    interceptors: {
+      request: AxiosInterceptorManager<AxiosRequestConfig & MyHeader>;
+      response: AxiosInterceptorManager<MyAxiosResponse>;
+    };
+  }
+
+  export interface AxiosInterceptorManager<V> {
+    use<T = V>(
+      onFulfilled?: (value: V) => T | Promise<T>,
+      onRejected?: (error: MyAxiosError) => any
+    ): number;
+    eject(id: number): void;
   }
 
   export interface AxiosInstance {

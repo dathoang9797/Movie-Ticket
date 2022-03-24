@@ -1,4 +1,4 @@
-import '@Config/Lang';
+//import '@Config/Lang';
 import { connection } from '@Config/WebSocket';
 import { HttpError } from '@microsoft/signalr';
 import { store } from '@Redux/store';

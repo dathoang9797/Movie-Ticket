@@ -1,18 +1,11 @@
 import ArrowSlick from '@Components/ArrowSlick';
 import Button from '@Components/Button';
 import CardFlip from '@Components/Card/CardFlip';
-import {
-  MultipleSlickContainer,
-  SliderStyle,
-} from '@Pages/HomePage/MultipleSlick/MultipleSlick.styles';
 import { ThongTinPhim } from '@Core/Models/Phim.type';
+import { MultipleStyle } from '@Pages/HomePage/MultipleSlick/MultipleSlick.styles';
 import { useAppDispatch } from '@Redux/hook';
-import {
-  fetchAllFilmlAction,
-  fetchFilmDangChieulAction,
-  fetchFilmlSapChieuAction,
-} from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimAction';
-import React, { useCallback } from 'react';
+import { quanLyPhimAction } from '@Redux/Reducers/QuanLyPhimReducer';
+import React from 'react';
 import { Settings } from 'react-slick';
 
 const settings: Settings = {
@@ -36,19 +29,19 @@ type PropsMultipleItems = {
 
 function MultipleItems({ arrFilm, dangChieu, sapChieu }: PropsMultipleItems) {
   const dispatch = useAppDispatch();
-
+  const { getAllFilms, getFilmsDangChieu, getFilmsSapChieu } = quanLyPhimAction;
   const renderFilms = () => {
-    return arrFilm.slice(0, 20).map((film, index) => {
-      return <CardFlip phim={film} key={index} />;
-      // return <CardBase phim={film} key={index} />;
+    return arrFilm.slice(0, 20).map((film) => {
+      return <CardFlip phim={film} key={`Film-${film.idThongTinPhim}`} />;
+      // return <CardBase phim={film} key={`Film-${film.maPhim}`} />;
     });
   };
 
   return (
-    <MultipleSlickContainer>
+    <MultipleStyle.MultipleSlickContainer>
       <Button
         onClick={() => {
-          dispatch(fetchAllFilmlAction());
+          dispatch(getAllFilms());
         }}
         className={!dangChieu && !sapChieu ? 'active_film' : 'none_active_film'}
       >
@@ -56,7 +49,7 @@ function MultipleItems({ arrFilm, dangChieu, sapChieu }: PropsMultipleItems) {
       </Button>
       <Button
         onClick={() => {
-          dispatch(fetchFilmDangChieulAction());
+          dispatch(getFilmsDangChieu());
         }}
         className={dangChieu ? 'active_film' : 'none_active_film'}
       >
@@ -64,15 +57,15 @@ function MultipleItems({ arrFilm, dangChieu, sapChieu }: PropsMultipleItems) {
       </Button>
       <Button
         onClick={() => {
-          dispatch(fetchFilmlSapChieuAction());
+          dispatch(getFilmsSapChieu());
         }}
         className={sapChieu ? 'active_film' : 'none_active_film'}
       >
         PHIM SẮP CHIẾU
       </Button>
 
-      <SliderStyle {...settings}>{renderFilms()}</SliderStyle>
-    </MultipleSlickContainer>
+      <MultipleStyle.MultipleSlider {...settings}>{renderFilms()}</MultipleStyle.MultipleSlider>
+    </MultipleStyle.MultipleSlickContainer>
   );
 }
 export default React.memo(MultipleItems);

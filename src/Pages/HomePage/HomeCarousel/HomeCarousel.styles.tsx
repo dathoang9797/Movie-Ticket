@@ -5,16 +5,14 @@ type PropsCarouselIem = {
   image: string;
 };
 
-export const CarouselStyle = styled(Carousel)`
+const CarouselContainer = styled(Carousel)`
   & .slick-dots-bottom {
     margin: 0;
     padding: 0;
   }
 `;
 
-export const CarouselContainer = styled.div``;
-
-export const CarouselItem = styled.div<PropsCarouselIem>`
+const CarouselItem = styled.div<PropsCarouselIem>`
   height: 550px;
   color: #fff;
   background-position: center top;
@@ -22,4 +20,6 @@ export const CarouselItem = styled.div<PropsCarouselIem>`
   background-repeat: no-repeat;
   background-image: ${({ image }) => `url(${image})`};
 `;
-export const CarouselItemImage = styled.img``;
+const CarouselItemImage = styled.img``;
+
+export const CarouselStyle = { CarouselContainer, CarouselItem, CarouselItemImage };

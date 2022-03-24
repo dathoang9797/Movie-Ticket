@@ -6,6 +6,7 @@ export type Rap = {
 };
 
 export type CumRap = {
+  idCumRap: string;
   danhSachPhim: DanhSachPhim[];
   maCumRap: string;
   tenCumRap: string;
@@ -14,6 +15,7 @@ export type CumRap = {
 };
 
 export type CumRapChieu = {
+  idCumRapChieu: string;
   lichChieuPhim: LichChieuPhim[];
   maCumRap: string;
   tenCumRap: string;
@@ -36,6 +38,7 @@ export type ThongTinHeThongCumRap = {
 };
 
 export type HeThongRapChieu = {
+  idHeThongRapChieu: string;
   cumRapChieu: CumRapChieu[];
   maHeThongRap: string;
   tenHeThongRap: string;
@@ -43,6 +46,7 @@ export type HeThongRapChieu = {
 };
 
 export type ThongTinLichChieuHeThongRap = {
+  idThongTinLichHeThongRapChieu: string;
   lstCumRap: CumRap[];
   maHeThongRap: string;
   tenHeThongRap: string;

@@ -1,8 +1,10 @@
 import React, { lazy } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from '@reduxjs/toolkit';
 import HomeTemplate from '@Templates/HomeTemplate';
 import UserTemplate from '@Templates/UserTemplate';
 import CheckoutTemplate from '@Templates/CheckoutTemplate';
+import AdminTemplate from '@Templates/AdminTemplate/AdminTemplate';
+import UserManagerPage from '@Pages/AdminPage/UserManagerPage';
 
 const CheckoutPage = lazy(() => import('@Pages/CheckoutPage'));
 const ContactPage = lazy(() => import('@Pages/ContactPage'));
@@ -15,6 +17,9 @@ const ProfilePage = lazy(() => import('@Pages/ProfilePage'));
 const DashBoardPage = lazy(() => import('@Pages/AdminPage/DashBoardPage'));
 const FilmsPage = lazy(() => import('@Pages/AdminPage/FilmsPage'));
 const ShowTimePage = lazy(() => import('@Pages/AdminPage/ShowTimePage'));
+const AddFilmsPage = lazy(() => import('@Pages/AdminPage/FilmsPage/AddFilmsPage'));
+const EditFilmsPage = lazy(() => import('@Pages/AdminPage/FilmsPage/EditFilmsPage'));
+const UserManagerFilmsPage = lazy(() => import('@Pages/AdminPage/UserManagerPage'));
 
 export const routersHomeTemPlate = [
   { path: process.env.REACT_APP_LINK_HOME, componentPage: HomePage },
@@ -35,35 +40,48 @@ export const routerCheckoutTemplate = [
 
 export const routerAdminTemplate = [
   { path: process.env.REACT_APP_LINK_ADMIN_DASHBOARD, componentPage: DashBoardPage },
-  { path: process.env.REACT_APP_LINK_ADMIN_FILMS, componentPage: FilmsPage },
-  { path: process.env.REACT_APP_LINK_ADMIN_SHOWTIME, componentPage: ShowTimePage },
+  {
+    path: [process.env.REACT_APP_LINK_ADMIN, process.env.REACT_APP_LINK_ADMIN_FILMS],
+    componentPage: FilmsPage,
+  },
+  { path: process.env.REACT_APP_LINK_ADMIN_SHOWTIME_FILMS, componentPage: ShowTimePage },
+  { path: process.env.REACT_APP_LINK_ADMIN_ADD_FILMS, componentPage: AddFilmsPage },
+  {
+    path: process.env.REACT_APP_LINK_ADMIN_EDIT_USERMANAGER,
+    componentPage: UserManagerFilmsPage,
+  },
+  {
+    path: process.env.REACT_APP_LINK_ADMIN_EDIT_FILMS + '/:maPhim',
+    componentPage: EditFilmsPage,
+  },
 ];
 
 const renderCheckoutTemplate = (() => {
-  const idCheckoutTemplate = uuidv4(); //Need Declare same id to switch  in react-router-dom do properly
+  //Need Declare same id to switch  in react-router-dom do properly
+  const idCheckoutTemplate = `CheckoutTemplate-${nanoid()}`;
   return routerCheckoutTemplate.map(({ componentPage, path }) => (
     <CheckoutTemplate key={idCheckoutTemplate} Component={componentPage} path={path} exact />
   ));
 })();
 
 const renderHomeTemplate = (() => {
-  const idHomeTemplate = uuidv4(); //Need Declare same id to switch  in react-router-dom do properly
+  const idHomeTemplate = `HomeTemplate-${nanoid()}`;
   return routersHomeTemPlate.map(({ componentPage, path }) => (
     <HomeTemplate key={idHomeTemplate} Component={componentPage} path={path} exact />
   ));
 })();
 
 const renderUserTemplate = (() => {
-  const idUserTemplate = uuidv4(); //Need Declare same id to switch  in react-router-dom do properly
+  const idUserTemplate = `UserTemplate-${nanoid()}`;
   return routerUserTemplate.map(({ componentPage, path }) => (
     <UserTemplate key={idUserTemplate} Component={componentPage} path={path} exact />
   ));
 })();
 
 const renderAdminTemplate = (() => {
-  const idAdminTemplate = uuidv4(); //Need Declare same id to switch  in react-router-dom do properly
+  const idAdminTemplate = `AdminTemplate-${nanoid()}`;
   return routerAdminTemplate.map(({ componentPage, path }) => (
-    <UserTemplate key={idAdminTemplate} Component={componentPage} path={path} exact />
+    <AdminTemplate key={idAdminTemplate} Component={componentPage} path={path} exact />
   ));
 })();
 

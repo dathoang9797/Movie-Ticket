@@ -1,35 +1,32 @@
-import React, { useEffect } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { PropsParams } from '@Core/Models/Global.type';
+import { PropsRouterComponent } from '@Core/Models/Global.type';
 import { ThongTinTaiKhoan } from '@Core/Models/NguoiDung.type';
 import { useAppDispatch } from '@Redux/hook';
-import { setThongTinNguoiDungThunk } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungThunk';
-import { message } from 'antd';
+import { quanLyNguoiDungThunk } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungThunk';
 import _ from 'lodash';
 import moment from 'moment';
-import { showError } from '@Utils/ShowError';
+import React, { useEffect } from 'react';
 
 type PropsCheckoutKetQuaDatVe = {
   thongTinNguoiDung: ThongTinTaiKhoan;
-} & RouteComponentProps<PropsParams>;
+} & PropsRouterComponent;
+
+const { setThongTinNguoiDungAsync } = quanLyNguoiDungThunk;
 
 function CheckoutKetQuaDatVe(props: PropsCheckoutKetQuaDatVe) {
   const { thongTinNguoiDung } = props;
   const dispatch = useAppDispatch();
-
   useEffect(() => {
-    dispatch(setThongTinNguoiDungThunk(showError));
+    dispatch(setThongTinNguoiDungAsync());
   }, [dispatch]);
 
   const renderTicketItem = () => {
     if (_.isNull(thongTinNguoiDung.thongTinDatVe) || _.isEmpty(thongTinNguoiDung.thongTinDatVe)) {
       return <div>Chưa có thông tin đặt vé</div>;
     }
-
-    return thongTinNguoiDung.thongTinDatVe.map((ticket, index) => {
+    return thongTinNguoiDung.thongTinDatVe.map((ticket) => {
       const seats = _.first(ticket.danhSachGhe);
       return (
-        <div className='p-2 lg:w-1/3 md:w-1/2 w-full' key={index}>
+        <div className='p-2 lg:w-1/3 md:w-1/2 w-full' key={`Ticket-${ticket.idNguoiDung}`}>
           <div className='h-full flex items-center border-gray-200 border p-4 rounded-lg'>
             <img
               alt='team'
@@ -46,8 +43,8 @@ function CheckoutKetQuaDatVe(props: PropsCheckoutKetQuaDatVe) {
               <p> Địa điểm {seats?.tenHeThongRap}</p>
               <p>
                 Tên rạp: {seats?.tenCumRap} - Ghế{' '}
-                {ticket.danhSachGhe.map((ghe, index) => (
-                  <span key={index} className='mr-2 inline-block'>
+                {ticket.danhSachGhe.map((ghe, key) => (
+                  <span key={`Ghe-${ghe.idDanhSachNguoiDung}`} className='mr-2 inline-block'>
                     {ghe.tenGhe}
                   </span>
                 ))}
