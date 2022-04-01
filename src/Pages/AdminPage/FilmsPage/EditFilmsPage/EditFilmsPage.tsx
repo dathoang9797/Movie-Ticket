@@ -4,10 +4,10 @@ import { useFormik } from 'formik';
 import { ThongTinPhim } from '@Core/Models/Phim.type';
 import moment from 'moment';
 import { useAppDispatch, useAppSelector } from '@Redux/hook';
-import { quanLyPhimThunk } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimThunk';
+import { quanLyPhimThunk } from '@Redux/Thunk/QuanLyPhimThunk';
 import { PropsRouterComponent } from '@Core/Models/Global.type';
 import { showError } from '@Utils/Alert/PopUp';
-import { selectQuanLyPhimState } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimSelect';
+import { selectQuanLyPhimState } from '@Redux/Selector/QuanLyPhimSelect';
 import _ from 'lodash';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
@@ -15,12 +15,12 @@ type PropsUseFormik = Omit<ThongTinPhim, 'biDanh' | 'daXoa'>;
 type PropsEditFilmsPage = PropsRouterComponent;
 
 const { layThongTinPhimAsync, setCapNhatPhimUpLoadAsync } = quanLyPhimThunk;
+const { selectFilmThongTinPhim } = selectQuanLyPhimState;
 
 function EditFilmsPage(props: PropsEditFilmsPage) {
   const { match } = props;
-  const { selectFilmThongTinPhim } = selectQuanLyPhimState;
-  const thongTinPhim = useAppSelector(selectFilmThongTinPhim);
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>('default');
+  const thongTinPhim = useAppSelector(selectFilmThongTinPhim);
   const [imgSrc, setImgSrc] = useState('');
   const dispatch = useAppDispatch();
 

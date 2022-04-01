@@ -1,6 +1,6 @@
 import Spinner from '@Components/Spinner';
 import { useAppSelector } from '@Redux/hook';
-import { selectIsLoadingState } from '@Redux/Reducers/LoadingReducer/LoadingSelect';
+import { selectIsLoadingState } from '@Redux/Selector/LoadingSelect';
 import { routerTemplates } from '@Routers/Router';
 import History from '@Utils/Libs/History';
 import React, { Suspense } from 'react';

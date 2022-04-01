@@ -2,7 +2,7 @@ import { connection } from '@Config/WebSocket';
 import { Ghe } from '@Core/Models/Ghe.type';
 import { DanhSachPhongVe, DanhSachVeDat } from '@Core/Models/Ve.type';
 import { AbortError } from '@microsoft/signalr';
-import { quanLyDatVeAction } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeSlice';
+import { quanLyDatVeAction } from '@Redux/Reducers/QuanLyDatVeSlice';
 import { RootState } from '@Redux/store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { quanLyDatVeService } from '@Services/QuanLyDatVeService';

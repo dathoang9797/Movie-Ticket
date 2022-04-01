@@ -1,5 +1,0 @@
-{
-  "name": "CheckoutTemplate",
-  "main": "./CheckoutTemplate.tsx",
-  "private": true
-}

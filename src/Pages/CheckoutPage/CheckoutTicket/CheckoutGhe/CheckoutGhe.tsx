@@ -3,7 +3,7 @@ import { Ghe } from '@Core/Models/Ghe.type';
 import { NguoiDungVM } from '@Core/Models/NguoiDung.type';
 import { GheStyle } from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe/CheckoutGhe.styles';
 import { useAppDispatch } from '@Redux/hook';
-import { quanLyDatVeThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
+import { quanLyDatVeThunk } from '@Redux/Thunk/QuanLyDatVeThunk';
 import React from 'react';
 import { SmileOutlined } from '@ant-design/icons';
 

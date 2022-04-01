@@ -27,7 +27,7 @@
     "isolatedModules": true,
   },
   "include": [
-    "src/**/*",
+    "src",
     "public/Lang"
   ],
   "exclude": [

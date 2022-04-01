@@ -4,10 +4,10 @@ import { PropsRouterComponent } from '@Core/Models/Global.type';
 import CheckoutKetQuaDatVe from '@Pages/CheckoutPage/CheckoutKetQuaDatVe';
 import CheckoutTicket from '@Pages/CheckoutPage/CheckoutTicket';
 import { useAppDispatch, useAppSelector } from '@Redux/hook';
-import { quanLyDatVeAction } from '@Redux/Reducers/QuanLyDatVeReducer';
-import { selecQuanLyDatVeState } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeSelect';
-import { quanLyDatVeThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
-import { selectNguoiDungState } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungSelect';
+import { quanLyDatVeAction } from '@Redux/Reducers/QuanLyDatVeSlice';
+import { selecQuanLyDatVeState } from '@Redux/Selector/QuanLyDatVeSelect';
+import { quanLyDatVeThunk } from '@Redux/Thunk/QuanLyDatVeThunk';
+import { selectNguoiDungState } from '@Redux/Selector/QuanLyNguoiDungSelect';
 import { localService } from '@Services/LocalStorageService';
 import { showError } from '@Utils/Alert/PopUp';
 import History from '@Utils/Libs/History';
@@ -18,27 +18,23 @@ import { NavLink } from 'react-router-dom';
 type PropsCheckoutPage = PropsRouterComponent;
 
 const { TabPane } = Tabs;
-
 const { setChuyenTab } = quanLyDatVeAction;
 const { getDanhSachPhongVeAsync } = quanLyDatVeThunk;
+const { selectUserInfo, selectThongTinNguoiDung } = selectNguoiDungState;
+const { selectChiTietPhongVe, selectTabActive, selectFilterGheDangDat, selectFilterGheRender } =
+  selecQuanLyDatVeState;
+const { socketClearGhe, socketDatVeThanhCong, socketLoadDanhSachGhe, socketLoadDanhSachGheDaDat } =
+  socketApp;
 
 function CheckoutPage(props: PropsCheckoutPage) {
   const dispatch = useAppDispatch();
-  const { selectUserInfo, selectThongTinNguoiDung } = selectNguoiDungState;
-  const { selectChiTietPhongVe, selectTabActive, selectFilterGheDangDat, selectFilterGheRender } =
-    selecQuanLyDatVeState;
-  const {
-    socketClearGhe,
-    socketDatVeThanhCong,
-    socketLoadDanhSachGhe,
-    socketLoadDanhSachGheDaDat,
-  } = socketApp;
   const userInfo = useAppSelector(selectUserInfo);
   const thongTinNguoiDung = useAppSelector(selectThongTinNguoiDung);
   const chiTietPhongVe = useAppSelector(selectChiTietPhongVe);
   const tabActive = useAppSelector(selectTabActive);
   const danhSachGheDangDat = useAppSelector(selectFilterGheDangDat);
   const danhSachGheRender = useAppSelector(selectFilterGheRender);
+
   const { taiKhoan } = userInfo;
   console.log({ danhSachGheRender });
   console.log('render CheckoutPage');

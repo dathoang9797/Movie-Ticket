@@ -19,7 +19,7 @@ function TabThongTinLichChieu({ ThongTinLichChieuHeThongRap }: PropsThongTinLich
         {ThongTinLichChieuHeThongRap?.map((rap) => {
           return (
             <TabPane
-              key={`Rap-${rap.idThongTinLichHeThongRapChieu}-${rap.maHeThongRap}`}
+              key={`Rap-${rap.idHeThongRapChieu}-${rap.maHeThongRap}`}
               tab={<img src={rap.logo} alt={rap.logo} width='50' className='h-full' />}
             >
               <Tabs tabPosition='left' className='overflow-y-auto h-140'>

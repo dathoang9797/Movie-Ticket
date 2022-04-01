@@ -4,7 +4,7 @@ import { useFormik } from 'formik';
 import { ThongTinPhim } from '@Core/Models/Phim.type';
 import moment from 'moment';
 import { useAppDispatch } from '@Redux/hook';
-import { quanLyPhimThunk } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimThunk';
+import { quanLyPhimThunk } from '@Redux/Thunk/QuanLyPhimThunk';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 

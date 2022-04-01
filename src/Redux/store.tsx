@@ -1,9 +1,9 @@
-import CarouselReducer from '@Redux/Reducers/CarouselReducer';
-import LoadingReducer from '@Redux/Reducers/LoadingReducer';
-import QuanLyDatVeReducer from '@Redux/Reducers/QuanLyDatVeReducer';
-import QuanLyNguoiDungReducer from '@Redux/Reducers/QuanLyNguoiDungReducer';
-import QuanLyPhimReducer from '@Redux/Reducers/QuanLyPhimReducer';
-import QuanLyRapReducer from '@Redux/Reducers/QuanLyRapReducer';
+import CarouselReducer from '@Redux/Reducers/CarouselSlice';
+import LoadingReducer from '@Redux/Reducers/LoadingSlice';
+import QuanLyDatVeReducer from '@Redux/Reducers/QuanLyDatVeSlice';
+import QuanLyNguoiDungReducer from '@Redux/Reducers/QuanLyNguoiDungSlice';
+import QuanLyPhimReducer from '@Redux/Reducers/QuanLyPhimSlice';
+import QuanLyRapReducer from '@Redux/Reducers/QuanLyRapSlice';
 import { AnyAction, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 

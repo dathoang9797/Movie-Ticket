@@ -5,7 +5,14 @@ const selectUserInfo = (state: RootState) => state.QuanLyNguoiDungReducer.userIn
 const selectThongTinNguoiDung = (state: RootState) =>
   state.QuanLyNguoiDungReducer.thongTinNguoiDung;
 
+const selectDanhSachNguoiDung = (state: RootState) =>
+  state.QuanLyNguoiDungReducer.danhSachNguoiDung;
+
+const selectChiTietNguoiDung = (state: RootState) => state.QuanLyNguoiDungReducer.chiTietNguoiDung;
+
 export const selectNguoiDungState = {
   selectUserInfo,
   selectThongTinNguoiDung,
+  selectDanhSachNguoiDung,
+  selectChiTietNguoiDung,
 };

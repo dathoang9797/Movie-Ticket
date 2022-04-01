@@ -37,7 +37,6 @@ declare namespace NodeJS {
     REACT_APP_LINK_SIGN_IN: string;
     REACT_APP_LINK_CHECK_OUT: string;
     REACT_APP_LINK_PROFILE: string;
-    REACT_APP_LINK_ADMIN: string;
     REACT_APP_LINK_ADMIN_DASHBOARD: string;
     REACT_APP_LINK_ADMIN_FILMS: string;
     REACT_APP_LINK_ADMIN_SHOWTIME_FILMS: string;

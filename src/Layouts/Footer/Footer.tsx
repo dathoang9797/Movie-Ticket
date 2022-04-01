@@ -1,4 +1,10 @@
-import {
+import { FooterStyle } from '@Layouts/Footer/Footer.styles';
+import { useAppSelector } from '@Redux/hook';
+import { selectQuanLyRapState } from '@Redux/Selector/QuanLyRapSelect';
+import _ from 'lodash';
+import React from 'react';
+
+const {
   FooterContainer,
   FooterContent,
   FooterContentCopyRight,
@@ -7,20 +13,14 @@ import {
   FooterContentMenuGrid,
   FooterContentMenuGridBrand,
   FooterContentMenuGridCol,
-} from '@Layouts/Footer/Footer.styles';
-import { useAppSelector } from '@Redux/hook';
-import { selectQuanLyRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelect';
-import { nanoid } from '@reduxjs/toolkit';
-import _ from 'lodash';
-import React from 'react';
+} = FooterStyle;
+const { selectRapHeThongRapChieu } = selectQuanLyRapState;
 
 const Footer = () => {
-  const { selectRapHeThongRapChieu } = selectQuanLyRapState;
   const heThongRapChieu = useAppSelector(selectRapHeThongRapChieu);
-
-  const arrHeThongRap = _.map(heThongRapChieu, (heThongRap) =>
-    _.pick(heThongRap, ['maHeThongRap', 'tenHeThongRap', 'logo', 'idHeThongRapChieu'])
-  );
+  const arrHeThongRap = _.map(heThongRapChieu, (heThongRap) => {
+    return _.pick(heThongRap, ['maHeThongRap', 'tenHeThongRap', 'logo', 'idHeThongRapChieu']);
+  });
 
   return (
     <FooterContainer>
@@ -49,7 +49,7 @@ const Footer = () => {
             <p className='pb-1 text-lg font-medium'>Category</p>
             <ul className='grid grid-cols-3'>
               {arrHeThongRap.map((htr) => (
-                <li key={`HeThongRap-${htr.idThongTinLichHeThongRapChieu}}`}>
+                <li key={`HeThongRap-${htr.idHeThongRapChieu}}`}>
                   <img src={htr.logo} alt={htr.logo} className='w-14' />
                 </li>
               ))}

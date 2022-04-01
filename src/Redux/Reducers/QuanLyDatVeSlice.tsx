@@ -1,8 +1,8 @@
 import { Ghe } from '@Core/Models/Ghe.type';
 import { DanhSachPhongVe, ThongTinVePhim } from '@Core/Models/Ve.type';
-import { quanLyDatVeThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
+import { quanLyDatVeThunk } from '@Redux/Thunk/QuanLyDatVeThunk';
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
-import { localService } from '@Services/LocalStorageService/LocalStorageService';
+import { localService } from '@Services/LocalStorageService';
 import { showError } from '@Utils/Alert/PopUp';
 import _ from 'lodash';
 

@@ -1,0 +1,5 @@
+{
+  "name": "ModalUser",
+  "main": "./ModalUser.tsx",
+  "private": true
+}

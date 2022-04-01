@@ -1,7 +1,7 @@
 import { DanhSachGheDaDat, Ghe } from '@Core/Models/Ghe.type';
 import * as signalR from '@microsoft/signalr';
 import { store } from '@Redux/store';
-import { localService } from '@Services/LocalStorageService/LocalStorageService';
+import { localService } from '@Services/LocalStorageService';
 import _ from 'lodash';
 
 export const connection = new signalR.HubConnectionBuilder()
@@ -10,7 +10,7 @@ export const connection = new signalR.HubConnectionBuilder()
   .build();
 
 const socketLoadDanhSachGheDaDat = async () => {
-  const quanLyDatVeReducer = await import('@Redux/Reducers/QuanLyDatVeReducer');
+  const quanLyDatVeReducer = await import('@Redux/Reducers/QuanLyDatVeSlice');
   const { quanLyDatVeAction } = quanLyDatVeReducer;
   const { setDanhSachGheKhachDat } = quanLyDatVeAction;
   const userInfo = localService.getUserInfo();
@@ -30,7 +30,7 @@ const socketLoadDanhSachGheDaDat = async () => {
 };
 
 const socketDatVeThanhCong = async (maLichChieu: string) => {
-  const quanLyDatVeReducer = await import('@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk');
+  const quanLyDatVeReducer = await import('@Redux/Thunk/QuanLyDatVeThunk');
   const { quanLyDatVeThunk } = quanLyDatVeReducer;
   const { getDanhSachPhongVeAsync } = quanLyDatVeThunk;
   const urlDatVeThanhCong = process.env.REACT_APP_SOCKET_DAT_VE_THANH_CONG;

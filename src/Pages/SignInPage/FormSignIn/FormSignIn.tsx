@@ -1,7 +1,7 @@
 import { ThongTinDangNhapVM } from '@Core/Models/NguoiDung.type';
 import { FormStyle } from '@Pages/SignInPage/FormSignIn/FormSignIn.styles';
 import { useAppDispatch } from '@Redux/hook';
-import { quanLyNguoiDungThunk } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungThunk';
+import { quanLyNguoiDungThunk } from '@Redux/Thunk/QuanLyNguoiDungThunk';
 import { signInUserSchema } from '@Shared/Schema/SignInSchema';
 import { useFormik } from 'formik';
 import React from 'react';

@@ -1,6 +1,6 @@
 import { DanhSachPhim, ThongTinLichChieuPhim } from '@Core/Models/Phim.type';
 import { CumRap, ThongTinLichChieuHeThongRap } from '@Core/Models/Rap.type';
-import { quanLyRapThunk } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapThunk';
+import { quanLyRapThunk } from '@Redux/Thunk/QuanLyRapThunk';
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { showError } from '@Utils/Alert/PopUp';
 
@@ -37,6 +37,7 @@ const quanLyRapSlice = createSlice({
             dp.lstLichChieuTheoPhim = dp.lstLichChieuTheoPhim.map((lc) => {
               return (lc = { ...lc, idLichChieuTheoPhim: nanoid() });
             });
+
             return dp;
           });
           return { ...cr, idCumRap: nanoid() } as CumRap;

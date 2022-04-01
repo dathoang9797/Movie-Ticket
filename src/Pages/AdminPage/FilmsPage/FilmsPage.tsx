@@ -2,8 +2,8 @@ import { CalendarOutlined, DeleteOutlined, EditOutlined, SearchOutlined } from '
 import { ThongTinPhim } from '@Core/Models/Phim.type';
 import { SearchStyle } from '@Pages/AdminPage/FilmsPage/FilmPage.styles';
 import { useAppDispatch, useAppSelector } from '@Redux/hook';
-import { selectQuanLyPhimState } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimSelect';
-import { quanLyPhimThunk } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimThunk';
+import { selectQuanLyPhimState } from '@Redux/Selector/QuanLyPhimSelect';
+import { quanLyPhimThunk } from '@Redux/Thunk/QuanLyPhimThunk';
 import { AppDispatch } from '@Redux/store';
 import { nanoid } from '@reduxjs/toolkit';
 import History from '@Utils/Libs/History';
@@ -144,9 +144,9 @@ const columns = (dispatch: AppDispatch) => {
 };
 
 const { getFilmAsync, setXoaPhimThunk } = quanLyPhimThunk;
+const { selectFilmArrFilm } = selectQuanLyPhimState;
 
 function Films() {
-  const { selectFilmArrFilm } = selectQuanLyPhimState;
   const arrFilm = useAppSelector(selectFilmArrFilm);
   const dispatch = useAppDispatch();
 

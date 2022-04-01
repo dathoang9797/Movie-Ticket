@@ -4,7 +4,7 @@ import CardFlip from '@Components/Card/CardFlip';
 import { ThongTinPhim } from '@Core/Models/Phim.type';
 import { MultipleStyle } from '@Pages/HomePage/MultipleSlick/MultipleSlick.styles';
 import { useAppDispatch } from '@Redux/hook';
-import { quanLyPhimAction } from '@Redux/Reducers/QuanLyPhimReducer';
+import { quanLyPhimAction } from '@Redux/Reducers/QuanLyPhimSlice';
 import React from 'react';
 import { Settings } from 'react-slick';
 
@@ -27,9 +27,10 @@ type PropsMultipleItems = {
   sapChieu: boolean;
 };
 
+const { getAllFilms, getFilmsDangChieu, getFilmsSapChieu } = quanLyPhimAction;
+
 function MultipleItems({ arrFilm, dangChieu, sapChieu }: PropsMultipleItems) {
   const dispatch = useAppDispatch();
-  const { getAllFilms, getFilmsDangChieu, getFilmsSapChieu } = quanLyPhimAction;
   const renderFilms = () => {
     return arrFilm.slice(0, 20).map((film) => {
       return <CardFlip phim={film} key={`Film-${film.idThongTinPhim}`} />;

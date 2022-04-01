@@ -1,4 +1,16 @@
-import {
+import { HeaderStyle } from '@Layouts/Header/Header.styles';
+import React, { Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '@Redux/hook';
+import { selectNguoiDungState } from '@Redux/Selector/QuanLyNguoiDungSelect';
+import _ from 'lodash';
+import { localService } from '@Services/LocalStorageService';
+import History from '@Utils/Libs/History';
+
+const { Option } = Select;
+const {
   HeaderBackGround,
   HeaderBrandImg,
   HeaderButtonBurger,
@@ -9,18 +21,7 @@ import {
   HeaderSignIn,
   HeaderSignUp,
   HeaderUl,
-} from '@Layouts/Header/Header.styles';
-import React, { Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
-import { Select } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '@Redux/hook';
-import { selectNguoiDungState } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungSelect';
-import _ from 'lodash';
-import { localService } from '@Services/LocalStorageService';
-import History from '@Utils/Libs/History';
-
-const { Option } = Select;
+} = HeaderStyle;
 
 const Header = () => {
   const { selectUserInfo } = selectNguoiDungState;

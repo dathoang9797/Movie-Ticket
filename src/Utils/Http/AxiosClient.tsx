@@ -1,9 +1,10 @@
-import { setRequestSpinnerEnded, setRequestSpinnerStarted } from '@Redux/Reducers/LoadingReducer';
+import { setRequestSpinnerEnded, setRequestSpinnerStarted } from '@Redux/Reducers/LoadingSlice';
 import { store } from '@Redux/store';
-import { localService } from '@Services/LocalStorageService/LocalStorageService';
+import { localService } from '@Services/LocalStorageService';
 import { showError } from '@Utils/Alert/PopUp';
 import axios from 'axios';
 import queryString from 'query-string';
+import { MyHeader } from 'src/@Types/axios';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL_MOVIE,
@@ -11,7 +12,7 @@ const axiosClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
     TokenCybersoft: process.env.REACT_APP_TOKEN_CYBERSOFT,
-  },
+  } as MyHeader['headers'],
   paramsSerializer: (params) => queryString.stringify(params),
 });
 

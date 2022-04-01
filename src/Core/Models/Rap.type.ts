@@ -46,7 +46,7 @@ export type HeThongRapChieu = {
 };
 
 export type ThongTinLichChieuHeThongRap = {
-  idThongTinLichHeThongRapChieu: string;
+  idHeThongRapChieu: string;
   lstCumRap: CumRap[];
   maHeThongRap: string;
   tenHeThongRap: string;

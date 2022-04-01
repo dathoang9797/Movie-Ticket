@@ -8,10 +8,6 @@ type MyHeader = {
   };
 };
 declare module 'axios' {
-  export interface AxiosStatic extends AxiosInstance {
-    create(config?: AxiosRequestConfig & MyHeader): AxiosInstance;
-  }
-
   export interface MyAxiosResponse extends AxiosResponse {
     config: AxiosRequestConfig<D> & MyHeader;
   }

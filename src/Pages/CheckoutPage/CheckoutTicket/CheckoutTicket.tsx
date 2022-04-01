@@ -6,7 +6,7 @@ import CheckoutGhe from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe';
 import { GheStyle } from '@Pages/CheckoutPage/CheckoutTicket/CheckoutGhe/CheckoutGhe.styles';
 import { CheckoutStyle } from '@Pages/CheckoutPage/CheckoutTicket/CheckoutTicket.styles';
 import { useAppDispatch } from '@Redux/hook';
-import { quanLyDatVeThunk } from '@Redux/Reducers/QuanLyDatVeReducer/QuanLyDatVeThunk';
+import { quanLyDatVeThunk } from '@Redux/Thunk/QuanLyDatVeThunk';
 import { showError } from '@Utils/Alert/PopUp';
 import _ from 'lodash';
 import React, { Fragment } from 'react';

@@ -1,6 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { Banner } from '@Core/Models/Banner.type';
-import { getCarouselAsync } from '@Redux/Reducers/CarouselReducer/CarouselThunk';
+import { getCarouselAsync } from '@Redux/Thunk/CarouselThunk';
 import { showError } from '@Utils/Alert/PopUp';
 
 type CarouselInitialState = {

@@ -3,22 +3,22 @@ import HomeMenu from '@Pages/HomePage/HomeMenu';
 import { HomePageContainer } from '@Pages/HomePage/HomePage.styles';
 import MultipleItems from '@Pages/HomePage/MultipleSlick';
 import { useAppDispatch, useAppSelector } from '@Redux/hook';
-import { selectCarouselState } from '@Redux/Reducers/CarouselReducer/CarouselSelect';
-import { getCarouselAsync } from '@Redux/Reducers/CarouselReducer/CarouselThunk';
-import { selectQuanLyPhimState } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimSelect';
-import { quanLyPhimThunk } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimThunk';
-import { selectQuanLyRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelect';
-import { quanLyRapThunk } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapThunk';
+import { selectCarouselState } from '@Redux/Selector/CarouselSelect';
+import { selectQuanLyPhimState } from '@Redux/Selector/QuanLyPhimSelect';
+import { selectQuanLyRapState } from '@Redux/Selector/QuanLyRapSelect';
+import { getCarouselAsync } from '@Redux/Thunk/CarouselThunk';
+import { quanLyPhimThunk } from '@Redux/Thunk/QuanLyPhimThunk';
+import { quanLyRapThunk } from '@Redux/Thunk/QuanLyRapThunk';
 import React, { useEffect } from 'react';
 
 const { getFilmAsync } = quanLyPhimThunk;
 const { getCumRapAsync } = quanLyRapThunk;
+const { selectFilmArrFilm, selectFilmDangChieu, selectFilmSapChieu } = selectQuanLyPhimState;
+const { selectRapHeThongRapChieu } = selectQuanLyRapState;
+const { selectCarouselArrImg } = selectCarouselState;
 
 function HomePage() {
   const dispatch = useAppDispatch();
-  const { selectFilmArrFilm, selectFilmDangChieu, selectFilmSapChieu } = selectQuanLyPhimState;
-  const { selectRapHeThongRapChieu } = selectQuanLyRapState;
-  const { selectCarouselArrImg } = selectCarouselState;
   const arrFilm = useAppSelector(selectFilmArrFilm);
   const dangChieu = useAppSelector(selectFilmDangChieu);
   const sapChieu = useAppSelector(selectFilmSapChieu);

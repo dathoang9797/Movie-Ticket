@@ -1,5 +1,5 @@
 import { ThongTinPhim } from '@Core/Models/Phim.type';
-import { quanLyPhimThunk } from '@Redux/Reducers/QuanLyPhimReducer/QuanLyPhimThunk';
+import { quanLyPhimThunk } from '@Redux/Thunk/QuanLyPhimThunk';
 import { createSlice, nanoid } from '@reduxjs/toolkit';
 import { showError, showSuccess } from '@Utils/Alert/PopUp';
 

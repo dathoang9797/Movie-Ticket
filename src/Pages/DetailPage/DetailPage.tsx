@@ -3,18 +3,18 @@ import TabHeThongRapChieu from '@Components/Tabs/TabHeThongRapChieu';
 import { PropsRouterComponent } from '@Core/Models/Global.type';
 import { DetailStyle } from '@Pages/DetailPage/DetailPage.styles';
 import { useAppDispatch, useAppSelector } from '@Redux/hook';
-import { selectQuanLyRapState } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapSelect';
-import { quanLyRapThunk } from '@Redux/Reducers/QuanLyRapReducer/QuanLyRapThunk';
+import { selectQuanLyRapState } from '@Redux/Selector/QuanLyRapSelect';
+import { quanLyRapThunk } from '@Redux/Thunk/QuanLyRapThunk';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 
 type PropsDetailPage = PropsRouterComponent;
 
 const { getThongTinLichChieuPhimAsync } = quanLyRapThunk;
+const { selectRapFilmDetail } = selectQuanLyRapState;
 
 function DetailPage(props: PropsDetailPage) {
   const dispatch = useAppDispatch();
-  const { selectRapFilmDetail } = selectQuanLyRapState;
   const filmDetail = useAppSelector(selectRapFilmDetail);
 
   useEffect(() => {

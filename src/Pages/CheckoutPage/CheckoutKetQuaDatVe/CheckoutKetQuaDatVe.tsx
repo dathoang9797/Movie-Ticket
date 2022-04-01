@@ -1,7 +1,7 @@
 import { PropsRouterComponent } from '@Core/Models/Global.type';
 import { ThongTinTaiKhoan } from '@Core/Models/NguoiDung.type';
 import { useAppDispatch } from '@Redux/hook';
-import { quanLyNguoiDungThunk } from '@Redux/Reducers/QuanLyNguoiDungReducer/QuanLyNguoiDungThunk';
+import { quanLyNguoiDungThunk } from '@Redux/Thunk/QuanLyNguoiDungThunk';
 import _ from 'lodash';
 import moment from 'moment';
 import React, { useEffect } from 'react';

@@ -3,7 +3,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import HomeTemplate from '@Templates/HomeTemplate';
 import UserTemplate from '@Templates/UserTemplate';
 import CheckoutTemplate from '@Templates/CheckoutTemplate';
-import AdminTemplate from '@Templates/AdminTemplate/AdminTemplate';
+import AdminTemplate from '@Templates/AdminTemplate';
 import UserManagerPage from '@Pages/AdminPage/UserManagerPage';
 
 const CheckoutPage = lazy(() => import('@Pages/CheckoutPage'));
@@ -40,20 +40,11 @@ export const routerCheckoutTemplate = [
 
 export const routerAdminTemplate = [
   { path: process.env.REACT_APP_LINK_ADMIN_DASHBOARD, componentPage: DashBoardPage },
-  {
-    path: [process.env.REACT_APP_LINK_ADMIN, process.env.REACT_APP_LINK_ADMIN_FILMS],
-    componentPage: FilmsPage,
-  },
+  { path: process.env.REACT_APP_LINK_ADMIN_FILMS, componentPage: FilmsPage },
   { path: process.env.REACT_APP_LINK_ADMIN_SHOWTIME_FILMS, componentPage: ShowTimePage },
   { path: process.env.REACT_APP_LINK_ADMIN_ADD_FILMS, componentPage: AddFilmsPage },
-  {
-    path: process.env.REACT_APP_LINK_ADMIN_EDIT_USERMANAGER,
-    componentPage: UserManagerFilmsPage,
-  },
-  {
-    path: process.env.REACT_APP_LINK_ADMIN_EDIT_FILMS + '/:maPhim',
-    componentPage: EditFilmsPage,
-  },
+  { path: process.env.REACT_APP_LINK_ADMIN_EDIT_USERMANAGER, componentPage: UserManagerFilmsPage },
+  { path: process.env.REACT_APP_LINK_ADMIN_EDIT_FILMS + '/:maPhim', componentPage: EditFilmsPage },
 ];
 
 const renderCheckoutTemplate = (() => {

@@ -1,5 +1,0 @@
-{
-  "name": "LoadingSlice",
-  "main": "./LoadingSlice.tsx",
-  "private": true
-}

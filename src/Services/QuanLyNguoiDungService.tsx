@@ -35,10 +35,7 @@ export const quanLyNguoiDungService = {
 
   layDanhSachNguoiDung(maNhom: NguoiDungVM['maNhom'], tuKhoa?: string, isLoading?: boolean) {
     return AxiosClient.get<
-      ResponseData<
-        | Array<Omit<NguoiDungVM, 'maNhom' | 'accessToken' | 'maLoaiNguoiDung'>>
-        | ResponseData<string>
-      >
+      ResponseData<Array<Omit<NguoiDungVM, 'maNhom' | 'accessToken'>>> | ResponseData<string>
     >(process.env.REACT_APP_LINK_QUAN_LY_NGUOI_DUNG_LAY_DANH_SACH_NGUOI_DUNG, {
       params: { maNhom, tuKhoa },
       headers: { isLoading: isLoading ?? true },
