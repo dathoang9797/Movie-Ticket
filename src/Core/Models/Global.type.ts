@@ -5,6 +5,7 @@ export type PropsParams = {
   maPhim?: string;
   id?: string;
   maLichChieu?: string;
+  tenPhim?: string;
 };
 
 //Template

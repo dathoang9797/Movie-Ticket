@@ -1,34 +1,63 @@
-import React from 'react';
-import { Button, Cascader, InputNumber } from 'antd';
-import { DatePicker } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, InputNumber, Select, DatePicker } from 'antd';
 import { FormAntStyle, ShowTimeContainer } from '@Pages/AdminPage/ShowTimePage/ShowTimePage.styles';
-import { SingleValueType } from 'rc-cascader/lib/Cascader';
+import { ThongTinHeThongRap, ThongTinHeThongCumRap } from '@Core/Models/Rap.type';
+import { PropsRouterComponent } from '@Core/Models/Global.type';
+import { AxiosError } from 'axios';
+import { quanLyRapService } from '@Services/QuanLyRapService';
+import { quanLyDatVeService } from '@Services/QuanLyDatVeService';
+import moment from 'moment';
+import { useFormik } from 'formik';
+import { Phim } from '@Core/Models/Phim.type';
 
-const options = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [],
-      },
-    ],
-  },
-];
+type State = {
+  thongTinHeThongRap: ThongTinHeThongRap[];
+  cumRapChieu: ThongTinHeThongCumRap[];
+};
 
-function ShowTime() {
+function ShowTime(props: PropsRouterComponent) {
+  const [state, setState] = useState<State>({
+    thongTinHeThongRap: [],
+    cumRapChieu: [],
+  });
+  const dateFormat = 'DD/MM/YYYY hh:mm:ss';
+
+  const formik = useFormik<Phim>({
+    initialValues: {
+      maPhim: props.match.params.maPhim ?? '',
+      ngayChieuGioChieu: '',
+      maRap: '',
+      giaVe: 0,
+    },
+    onSubmit: async (values) => {
+      try {
+        const converMaPhim = Number(values.maPhim);
+        const valuesUpdate = { ...values, maPhim: converMaPhim };
+        const result = await quanLyDatVeService.taoLichChieu(valuesUpdate);
+        console.log({ result });
+      } catch (error) {}
+    },
+  });
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const result = await quanLyRapService.layThongTinHeThongRap();
+        if (typeof result.content === 'string') {
+          console.log(result);
+          return;
+        }
+        console.log({ result });
+        setState({
+          ...state,
+          thongTinHeThongRap: result.content,
+        });
+      } catch (error) {
+        const err = error as AxiosError;
+      }
+    }
+    fetchData();
+  }, []);
+
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
@@ -37,21 +66,52 @@ function ShowTime() {
     console.log('Failed:', errorInfo);
   };
 
-  const handleChangeDate = (value: moment.Moment | null, dateString: string) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
-  };
-
   const handleChangeInputNumber = (value: number) => {
-    console.log(value);
+    formik.setFieldValue('giaVe', value);
   };
 
-  const onOk = (value: any) => {
-    console.log('onOk: ', value);
+  const handleChangeHeThongRap = async (value: string) => {
+    try {
+      console.log({ value });
+      const result = await quanLyRapService.layThongTinCumRapTheoHeThong(value);
+      console.log({ result });
+      if (typeof result.content === 'string') {
+        return console.log(result.content);
+      }
+      setState({ ...state, cumRapChieu: result.content });
+    } catch (error) {
+      const err = error as AxiosError;
+      console.log('error', err.response?.data);
+    }
   };
 
-  const handleChange = (value: SingleValueType) => {
-    console.log(value);
+  const handleChangeCumRap = (value: string) => {
+    formik.setFieldValue('maRap', value);
+  };
+
+  const onOk = async (value: any) => {
+    await formik.setFieldValue('ngayChieuGioChieu', moment(value).format(dateFormat));
+  };
+
+  const handleChangeDate = (value: moment.Moment | null, dateString: string) => {
+    formik.setFieldValue('ngayChieuGioChieu', moment(value).format(dateFormat));
+  };
+  const convertMaHeThongRap = (thongTinHeThongRap: ThongTinHeThongRap[]) => {
+    return thongTinHeThongRap.map((heThongRap, index) => {
+      return {
+        label: heThongRap.biDanh,
+        value: heThongRap.maHeThongRap,
+      };
+    });
+  };
+
+  const conertTenHeThongRap = () => {
+    return state.cumRapChieu.map((cumRap, index) => {
+      return {
+        label: cumRap.maCumRap,
+        value: cumRap.tenCumRap,
+      };
+    });
   };
 
   return (
@@ -64,33 +124,44 @@ function ShowTime() {
         onFinish={onFinish}
         onFinishFailed={handleFinishFailed}
         autoComplete='off'
+        onSubmitCapture={formik.handleSubmit}
       >
-        <h3 className='text-2xl text-center mb-4'>Tạo Lịch Chiếu</h3>
+        <h3 className='text-2xl text-center mb-4'>Tạo Lịch Chiếu - {props.match.params.tenPhim}</h3>
         <FormAntStyle.Item
           label='Hệ Thống Rạp'
           name='username'
           rules={[{ message: 'Please input your username!' }]}
         >
-          <Cascader options={options} onChange={handleChange} placeholder='Chọn hệ thống rạp' />,
+          <Select
+            options={convertMaHeThongRap(state.thongTinHeThongRap)}
+            onChange={handleChangeHeThongRap}
+            placeholder='Chọn hệ thống rạp'
+          />
         </FormAntStyle.Item>
         <FormAntStyle.Item
           label='Cum Rạp'
           name='username'
           rules={[{ message: 'Please input your username!' }]}
         >
-          <Cascader options={options} onChange={handleChange} placeholder='Chọn Cụm Rạp' />,
+          <Select
+            options={conertTenHeThongRap()}
+            placeholder='Chọn Cụm Rạp'
+            onChange={handleChangeCumRap}
+          />
+        </FormAntStyle.Item>
+
+        <FormAntStyle.Item label='Ngày chiếu giờ chiếu' name='date'>
+          <DatePicker
+            showTime
+            onChange={handleChangeDate}
+            onOk={onOk}
+            defaultValue={moment()}
+            format={dateFormat}
+          />
         </FormAntStyle.Item>
 
         <FormAntStyle.Item
-          label='Ngày chiếu giờ chiếu'
-          name='username'
-          rules={[{ message: 'Please input your username!' }]}
-        >
-          <DatePicker showTime onChange={handleChangeDate} onOk={onOk} />
-        </FormAntStyle.Item>
-
-        <FormAntStyle.Item
-          label='Ngày chiếu giờ chiếu'
+          label='Giá vé'
           name='username'
           rules={[{ message: 'Please input your username!' }]}
         >
@@ -108,7 +179,7 @@ function ShowTime() {
           name='username'
           rules={[{ message: 'Please input your username!' }]}
         >
-          <Button>Tạo lịch chiếu</Button>
+          <Button htmlType='submit'>Tạo lịch chiếu</Button>
         </FormAntStyle.Item>
       </FormAntStyle>
     </ShowTimeContainer>

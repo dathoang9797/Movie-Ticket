@@ -1,7 +1,7 @@
 import { HeThongRapChieu } from '@Core/Models/Rap.type';
 
 export type Phim = {
-  maPhim: number;
+  maPhim: number | string;
   ngayChieuGioChieu: string;
   maRap: string;
   giaVe: number;

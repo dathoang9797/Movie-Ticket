@@ -1,10 +1,10 @@
 import React, { lazy } from 'react';
-import { nanoid } from '@reduxjs/toolkit';
 import HomeTemplate from '@Templates/HomeTemplate';
 import UserTemplate from '@Templates/UserTemplate';
 import CheckoutTemplate from '@Templates/CheckoutTemplate';
 import AdminTemplate from '@Templates/AdminTemplate';
 import UserManagerPage from '@Pages/AdminPage/UserManagerPage';
+import { nanoid } from '@reduxjs/toolkit';
 
 const CheckoutPage = lazy(() => import('@Pages/CheckoutPage'));
 const ContactPage = lazy(() => import('@Pages/ContactPage'));
@@ -41,7 +41,10 @@ export const routerCheckoutTemplate = [
 export const routerAdminTemplate = [
   { path: process.env.REACT_APP_LINK_ADMIN_DASHBOARD, componentPage: DashBoardPage },
   { path: process.env.REACT_APP_LINK_ADMIN_FILMS, componentPage: FilmsPage },
-  { path: process.env.REACT_APP_LINK_ADMIN_SHOWTIME_FILMS, componentPage: ShowTimePage },
+  {
+    path: process.env.REACT_APP_LINK_ADMIN_SHOWTIME_FILMS + '/:maPhim/:tenPhim',
+    componentPage: ShowTimePage,
+  },
   { path: process.env.REACT_APP_LINK_ADMIN_ADD_FILMS, componentPage: AddFilmsPage },
   { path: process.env.REACT_APP_LINK_ADMIN_EDIT_USERMANAGER, componentPage: UserManagerFilmsPage },
   { path: process.env.REACT_APP_LINK_ADMIN_EDIT_FILMS + '/:maPhim', componentPage: EditFilmsPage },
