@@ -1,5 +1,5 @@
 //import '@Config/Lang';
-import { connection } from '@Config/WebSocket';
+// import { connection } from '@Config/WebSocket';
 import { HttpError } from '@microsoft/signalr';
 import { store } from '@Redux/store';
 import React from 'react';
@@ -14,19 +14,21 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'antd/dist/antd.css';
 import './index.css';
 
-connection
-  .start()
-  .then(() => {
-    ReactDOM.render(
-      <React.StrictMode>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </React.StrictMode>,
-      document.getElementById('root')
-    );
-  })
-  .catch((err) => {
-    const error = err as HttpError;
-    console.log(error.message);
-  });
+// connection
+//   .start()
+//   .then(() => {
+
+//   })
+//   .catch((err) => {
+//     const error = err as HttpError;
+//     console.log(error.message);
+//   });
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
